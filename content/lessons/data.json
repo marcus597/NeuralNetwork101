@@ -1,0 +1,122 @@
+{
+  "id": "0.2",
+  "slug": "data",
+  "module": "world",
+  "moduleTitle": "The World",
+  "title": "What Counts as Data?",
+  "kicker": "Data",
+  "presetId": "data-replay",
+  "presetConfig": {},
+  "phases": {
+    "hook": {
+      "prompt": "Will Maya love this film on Reel? You have examples — what would you guess?",
+      "tease": "Drag something before anyone explains ML to you."
+    },
+    "intuition": {
+      "blocks": [
+        {
+          "type": "metaphor",
+          "body": "ML on Reel is pattern completion: past watches → predict the next one."
+        },
+        {
+          "type": "text",
+          "body": "In \"What Counts as Data?\" you'll manipulate a live model — not read about one."
+        },
+        {
+          "type": "prediction-prompt",
+          "body": "What do you think happens if you change one parameter?"
+        }
+      ]
+    },
+    "playground": {
+      "mastery": {
+        "type": "threshold",
+        "metric": "rowCount",
+        "op": "gte",
+        "value": 10
+      }
+    },
+    "mistakes": {
+      "traps": [
+        {
+          "id": "trap-1",
+          "detect": {
+            "type": "threshold",
+            "metric": "accuracy",
+            "op": "gte",
+            "value": 0.99
+          },
+          "reveal": "Perfect train score can still fail on new films — that's the whole game.",
+          "tone": "warning"
+        }
+      ]
+    },
+    "realWorld": {
+      "example": "Reel uses data to decide which shorts surface for millions of viewers — same idea, bigger scale.",
+      "domain": "Streaming / recommendations"
+    },
+    "miniChallenge": {
+      "goal": "Reach the mastery condition by experimenting with what counts as data?.",
+      "mastery": {
+        "type": "threshold",
+        "metric": "rowCount",
+        "op": "gte",
+        "value": 10
+      }
+    },
+    "recap": {
+      "bullets": [
+        "You learned Data by touching it, not reading it.",
+        "Predictions need evidence from data.",
+        "Experiment mode is always open — break things on purpose."
+      ]
+    },
+    "quiz": {
+      "steps": [
+        {
+          "type": "predict",
+          "prompt": "Before changing anything: will accuracy go up or down if you tweak the main slider?"
+        },
+        {
+          "type": "manipulate",
+          "prompt": "Change a parameter until the model responds.",
+          "targetMetric": "rowCount",
+          "targetOp": "gte",
+          "targetValue": 5
+        },
+        {
+          "type": "explain",
+          "prompt": "Why did the metric move?",
+          "choices": [
+            {
+              "id": "a",
+              "text": "The model found a pattern in Maya's watches"
+            },
+            {
+              "id": "b",
+              "text": "The UI randomly animates",
+              "wrongReason": "Animations follow your parameter changes — check the metrics."
+            },
+            {
+              "id": "c",
+              "text": "More data always hurts",
+              "wrongReason": "More relevant data usually helps; irrelevant data hurts."
+            }
+          ],
+          "correctId": "a"
+        }
+      ]
+    },
+    "experiment": {
+      "config": {}
+    }
+  },
+  "nav": {
+    "prev": "prediction-game",
+    "next": "features"
+  },
+  "seo": {
+    "title": "What Counts as Data? — Wonder ML",
+    "description": "Interactive lesson: What Counts as Data?. Learn Data by experimentation on Reel."
+  }
+}

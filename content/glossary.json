@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "terms": {
+    "data": "Recorded moments — what happened, written down as rows.",
+    "feature": "A clue you can measure, like how long a film is or how upbeat it feels.",
+    "label": "The answer you wish you knew ahead of time — love or skip, stars, genre.",
+    "train": "Practice round — the app adjusts using films you've already seen.",
+    "test": "Blind taste test — films held back so you can't cheat while tuning.",
+    "accuracy": "Out of every guess, how many were right.",
+    "loss": "A single number for how wrong the guesses are — lower is better.",
+    "overfitting": "Memorizing homework answers instead of learning the idea.",
+    "underfitting": "Using a rule too simple to capture the pattern.",
+    "neighbor": "The closest past examples — like asking friends with similar taste."
+  }
+}

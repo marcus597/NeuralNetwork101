@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "modules": [
+    {
+      "id": "world",
+      "title": "The World",
+      "lessons": [
+        "prediction-game",
+        "data",
+        "features",
+        "labels"
+      ]
+    },
+    {
+      "id": "evaluation",
+      "title": "Honest Evaluation",
+      "lessons": [
+        "training",
+        "testing",
+        "evaluation-metrics"
+      ]
+    },
+    {
+      "id": "fit",
+      "title": "The Fit Tension",
+      "lessons": [
+        "underfitting",
+        "overfitting",
+        "bias-variance",
+        "cross-validation"
+      ]
+    },
+    {
+      "id": "toolbox",
+      "title": "Your First Toolbox",
+      "lessons": [
+        "knn",
+        "linear-regression",
+        "logistic-regression",
+        "decision-trees",
+        "random-forests",
+        "naive-bayes"
+      ]
+    },
+    {
+      "id": "geometry",
+      "title": "Geometry & Groups",
+      "lessons": [
+        "svm",
+        "kmeans"
+      ]
+    },
+    {
+      "id": "engine",
+      "title": "The Engine Room",
+      "lessons": [
+        "gradient-descent",
+        "neural-networks"
+      ]
+    },
+    {
+      "id": "production",
+      "title": "Making It Real",
+      "lessons": [
+        "model-selection",
+        "feature-engineering",
+        "pipelines",
+        "deployment",
+        "ethics"
+      ]
+    }
+  ]
+}
