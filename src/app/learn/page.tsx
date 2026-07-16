@@ -7,7 +7,7 @@ export default function LearnPage() {
     <div className="page-container max-w-5xl">
       <PageHeader
         title="Learning path"
-        description="Four labs, one story — each stop lets you break something on purpose so Maya's recommender gets smarter."
+        description="Twenty-six labs across seven modules — each stop lets you break something on purpose so Maya's recommender gets smarter."
       />
       <ProgressOverview />
       <SkillPath />

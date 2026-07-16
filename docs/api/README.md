@@ -99,15 +99,12 @@ All errors return:
 
 Analytics events must not include PII. Blocked property keys: `email`, `name`, `phone`, `ip`, `userAgent`, `password`.
 
-## Paid features (v2)
+## Paid features
 
-## Paid features (future)
-
-Wonder launches as a **free product**. Subscription endpoints return real free-tier state, not mocks:
+Wonder launches as a **free product**. Subscription endpoints return real free-tier state:
 
 - `GET /api/subscription` → `{ tier: "free", status: "active" }`
-- `POST /api/subscription/checkout` → `403 SUBSCRIPTION_UNAVAILABLE`
-- `GET /api/features` → feature flag matrix (pro flags documented for v2)
+- `POST /api/subscription/checkout` → `403` — paid plans not offered at launch
 - `GET /api/features` → feature flag matrix (live)
 
 See [routes.md](./routes.md) for full endpoint reference.
