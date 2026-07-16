@@ -10,6 +10,7 @@ import { usePresetContext } from "../PresetPlayground";
 
 export const ClassificationPreset = forwardRef(function ClassificationPreset(
   { config }: { config: Record<string, unknown> },
+  _ref,
 ) {
   const { onSnapshot } = usePresetContext();
   const reveal = Boolean(config.revealHiddenDefault);
