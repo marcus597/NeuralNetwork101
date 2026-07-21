@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getAllLessonSlugs, getLessonBySlug } from "@/lib/content/loader";
-import { LessonEngine } from "@/engines/lesson/LessonEngine";
+import { LessonGate } from "@/engines/lesson/LessonGate";
 import { JsonLd } from "@/components/shell/JsonLd";
 
 type Props = { params: Promise<{ lessonSlug: string }> };
@@ -31,7 +31,7 @@ export default async function LessonPage({ params }: Props) {
   return (
     <>
       <JsonLd lesson={lesson} />
-      <LessonEngine lesson={lesson} />
+      <LessonGate lesson={lesson} />
     </>
   );
 }

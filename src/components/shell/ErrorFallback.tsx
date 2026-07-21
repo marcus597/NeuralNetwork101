@@ -15,7 +15,7 @@ export function ErrorFallback({
   onReset,
 }: ErrorFallbackProps) {
   return (
-    <div className="panel flex flex-col items-center gap-4 px-6 py-10 text-center glow-coral">
+    <div className="panel flex flex-col items-center gap-4 px-6 py-10 text-center">
       <div className="flex h-12 w-12 items-center justify-center rounded-full bg-danger/15">
         <AlertCircle className="h-5 w-5 text-danger" strokeWidth={1.75} />
       </div>

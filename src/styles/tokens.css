@@ -1,23 +1,72 @@
+/**
+ * Wonder — Neural Network Museum
+ * Comic book design system: bold ink, halftone paper, hard shadows.
+ */
 :root {
-  --bg-deep: #070b14;
-  --bg-panel: #0f1628;
-  --bg-elevated: #151f36;
-  --bg-inset: #0a101c;
-  --ink: #eef2ff;
-  --ink-muted: #94a3b8;
-  --ink-subtle: #64748b;
-  --coral: #ff6b4a;
-  --mint: #3dffb5;
-  --violet: #8b7cff;
-  --sky: #4cc9f0;
-  --gold: #ffd166;
-  --danger: #ff4d6d;
-  --border-subtle: rgb(148 163 184 / 12%);
-  --border-strong: rgb(148 163 184 / 22%);
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
+  /* Canvas & surfaces — newsprint / comic paper */
+  --bg-canvas: #fff6d6;
+  --bg-deep: #fff6d6;
+  --bg-surface: #ffffff;
+  --bg-panel: #ffffff;
+  --bg-elevated: #ffffff;
+  --bg-muted: #ffe566;
+  --bg-inset: #fff0a8;
+  --bg-stage: #fffef0;
+
+  /* Ink — comic black */
+  --ink: #1a1a1a;
+  --ink-muted: #3d3d3d;
+  --ink-subtle: #5c5c5c;
+  --ink-faint: #8a8a8a;
+
+  /* Discovery — punchy comic red-orange */
+  --discover: #ff4757;
+  --discover-soft: #ffeaa7;
+  --discover-muted: #ff6b81;
+  --accent: var(--discover);
+  --on-accent: #ffffff;
+
+  /* Neural semantics — saturated comic palette */
+  --nn-input: #0984e3;
+  --nn-input-soft: #dfe6ff;
+  --nn-hidden: #6c5ce7;
+  --nn-hidden-soft: #e8e4ff;
+  --nn-output: #ff4757;
+  --nn-output-soft: #ffe0e3;
+  --nn-signal: #00b894;
+  --nn-signal-soft: #dffff8;
+  --nn-blame: #d63031;
+  --nn-blame-soft: #ffd6d6;
+  --nn-activation: #00b894;
+  --nn-gradient: #fdcb6e;
+
+  /* Legacy aliases → semantic */
+  --violet: var(--nn-hidden);
+  --sky: var(--nn-input);
+  --mint: var(--nn-activation);
+  --coral: var(--nn-blame);
+  --gold: var(--nn-gradient);
+  --danger: #d63031;
+
+  /* Borders & shadows — thick ink outlines, offset hard shadows */
+  --border-subtle: #1a1a1a;
+  --border-medium: #1a1a1a;
+  --border-strong: #1a1a1a;
+  --border-width: 3px;
+  --shadow-sm: 2px 2px 0 #1a1a1a;
+  --shadow-md: 4px 4px 0 #1a1a1a;
+  --shadow-exhibit: 5px 5px 0 #1a1a1a;
+  --shadow-float: 6px 6px 0 #1a1a1a;
+  --shadow-press: 1px 1px 0 #1a1a1a;
+
+  /* Radius — slightly angular comic panels */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
   --radius-full: 9999px;
+
+  /* Spacing */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -27,4 +76,11 @@
   --space-8: 32px;
   --space-10: 40px;
   --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 280ms;
 }

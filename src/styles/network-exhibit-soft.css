@@ -1,0 +1,240 @@
+/**
+ * Comic UI for the pizza brain exhibit.
+ * Scoped under .network-soft — does not affect the rest of the site.
+ */
+
+.network-soft {
+  position: relative;
+  isolation: isolate;
+}
+
+.network-soft-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  background: var(--bg-canvas);
+  background-image: radial-gradient(circle, rgb(26 26 26 / 6%) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+.network-soft-bg::before,
+.network-soft-bg::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(72px);
+}
+
+.network-soft-bg::before {
+  top: -8%;
+  right: -6%;
+  width: min(480px, 90vw);
+  height: min(480px, 90vw);
+  background: rgb(255 71 87 / 18%);
+}
+
+.network-soft-bg::after {
+  bottom: -6%;
+  left: -10%;
+  width: min(440px, 85vw);
+  height: min(440px, 85vw);
+  background: rgb(255 230 102 / 45%);
+}
+
+.network-soft .soft-glass {
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--border-subtle);
+  box-shadow: var(--shadow-md);
+}
+
+.network-soft .soft-shell {
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-float);
+}
+
+.network-soft .soft-shell-header {
+  background: var(--bg-muted);
+  border-bottom: var(--border-width) solid var(--border-subtle);
+}
+
+.network-soft .soft-step {
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+  border: 2px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.network-soft .soft-step:hover {
+  box-shadow: var(--shadow-md);
+  transform: translate(-1px, -1px);
+}
+
+.network-soft .soft-step-active {
+  background: var(--discover);
+  border-color: var(--border-subtle);
+  color: var(--on-accent);
+  box-shadow: var(--shadow-md);
+}
+
+.network-soft .soft-step-active .soft-step-num,
+.network-soft .soft-step-active .soft-step-title {
+  color: rgb(255 255 255 / 88%);
+}
+
+.network-soft .soft-step-active .soft-step-title {
+  color: #fff;
+}
+
+.network-soft .soft-label {
+  font-family: var(--font-bangers), Impact, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-subtle);
+}
+
+.network-soft .soft-ingredient {
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+  border: 2px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+  transition:
+    box-shadow 0.22s ease,
+    transform 0.22s ease,
+    opacity 0.22s ease;
+}
+
+.network-soft .soft-ingredient[data-on="true"] {
+  box-shadow: var(--shadow-md);
+  transform: translate(-1px, -1px);
+}
+
+.network-soft .soft-ingredient-icon {
+  background: var(--bg-muted);
+  border: 2px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+}
+
+.network-soft .soft-team-panel {
+  background: var(--bg-inset);
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  box-shadow: inset 0 2px 0 rgb(255 255 255 / 50%);
+}
+
+.network-soft .soft-detector {
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  border: 2px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.25s ease;
+}
+
+.network-soft .soft-detector[data-active="true"] {
+  box-shadow: var(--shadow-md);
+  background: var(--discover-soft);
+}
+
+.network-soft .soft-output {
+  border-radius: var(--radius-xl);
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--border-subtle);
+  box-shadow: var(--shadow-exhibit);
+}
+
+.network-soft .soft-output[data-pizza="true"] {
+  background: var(--discover-soft);
+  box-shadow: var(--shadow-float);
+}
+
+.network-soft .soft-output[data-pizza="false"] {
+  background: var(--nn-blame-soft);
+  box-shadow: var(--shadow-float);
+}
+
+.network-soft .soft-card-sm {
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+  border: 2px solid var(--border-subtle);
+  box-shadow: var(--shadow-md);
+}
+
+.network-soft .soft-tip-panel {
+  border-radius: var(--radius-xl);
+  background: var(--discover-soft);
+  border: var(--border-width) solid var(--border-subtle);
+  box-shadow: var(--shadow-md);
+}
+
+.network-soft .soft-btn-primary {
+  border-radius: var(--radius-lg);
+  background: var(--discover);
+  color: var(--on-accent);
+  border: var(--border-width) solid var(--border-subtle);
+  box-shadow: var(--shadow-md);
+  font-weight: 700;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.network-soft .soft-btn-primary:hover:not(:disabled) {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-float);
+}
+
+.network-soft .soft-btn-primary:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-press);
+}
+
+.network-soft .soft-btn-secondary {
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+  font-weight: 700;
+}
+
+.network-soft .soft-btn-ghost {
+  border-radius: var(--radius-lg);
+  background: var(--bg-muted);
+  border: 2px solid var(--border-subtle);
+}
+
+.network-soft .soft-meter-track {
+  background: var(--bg-inset);
+  border: 2px solid var(--border-subtle);
+  box-shadow: inset 2px 2px 0 rgb(26 26 26 / 8%);
+}
+
+.network-soft .soft-meter-fill-pizza {
+  background: linear-gradient(90deg, var(--discover-muted), var(--discover));
+}
+
+.network-soft .soft-meter-fill-not {
+  background: linear-gradient(90deg, #e88888, var(--nn-blame));
+}
+
+.network-soft .soft-page-title {
+  font-family: var(--font-bangers), Impact, sans-serif;
+  letter-spacing: 0.04em;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.network-soft .soft-page-sub {
+  color: var(--ink-muted);
+  font-weight: 700;
+}
+
+.network-soft .soft-reveal-modal {
+  box-shadow: var(--shadow-float);
+}

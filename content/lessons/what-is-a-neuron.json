@@ -1,0 +1,60 @@
+{
+  "id": "what-is-a-neuron",
+  "slug": "what-is-a-neuron",
+  "module": "meet-ai",
+  "moduleTitle": "Meet the brain",
+  "title": "What is a neuron?",
+  "kicker": "1",
+  "presetId": "game-neuron",
+  "presetConfig": {},
+  "phases": {
+    "hook": {
+      "prompt": "What is a neuron?",
+      "tease": "It is a tiny brain cell that turns on or off."
+    },
+    "intuition": {
+      "blocks": [
+        {
+          "type": "concept",
+          "term": "Remember",
+          "definition": "It is a tiny brain cell that turns on or off."
+        }
+      ]
+    },
+    "playground": {
+      "mastery": {
+        "type": "flag",
+        "flag": "won"
+      }
+    },
+    "mistakes": {
+      "traps": []
+    },
+    "realWorld": {
+      "example": "Your phone uses millions of these every second.",
+      "domain": "Everyday AI"
+    },
+    "miniChallenge": {
+      "goal": "Earn the star!",
+      "mastery": {
+        "type": "flag",
+        "flag": "won"
+      }
+    },
+    "recap": {
+      "bullets": [
+        "It is a tiny brain cell that turns on or off."
+      ]
+    },
+    "quiz": {
+      "steps": []
+    }
+  },
+  "nav": {
+    "next": "why-many-neurons"
+  },
+  "seo": {
+    "title": "What is a neuron? — Neural Network Museum",
+    "description": "It is a tiny brain cell that turns on or off."
+  }
+}

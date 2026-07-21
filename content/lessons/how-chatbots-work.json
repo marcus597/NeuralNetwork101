@@ -1,0 +1,60 @@
+{
+  "id": "how-chatbots-work",
+  "slug": "how-chatbots-work",
+  "module": "talk-ai",
+  "moduleTitle": "AI words",
+  "title": "How does ChatGPT work?",
+  "kicker": "10",
+  "presetId": "game-chat",
+  "presetConfig": {},
+  "phases": {
+    "hook": {
+      "prompt": "How does ChatGPT work?",
+      "tease": "Words → look → reply. That is it!"
+    },
+    "intuition": {
+      "blocks": [
+        {
+          "type": "concept",
+          "term": "Remember",
+          "definition": "Words → look → reply. That is it!"
+        }
+      ]
+    },
+    "playground": {
+      "mastery": {
+        "type": "flag",
+        "flag": "won"
+      }
+    },
+    "mistakes": {
+      "traps": []
+    },
+    "realWorld": {
+      "example": "The idea is simple. The scale is huge.",
+      "domain": "Everyday AI"
+    },
+    "miniChallenge": {
+      "goal": "Earn the star!",
+      "mastery": {
+        "type": "flag",
+        "flag": "won"
+      }
+    },
+    "recap": {
+      "bullets": [
+        "Words → look → reply. That is it!"
+      ]
+    },
+    "quiz": {
+      "steps": []
+    }
+  },
+  "nav": {
+    "prev": "how-ai-pays-attention"
+  },
+  "seo": {
+    "title": "How does ChatGPT work? — Neural Network Museum",
+    "description": "Words → look → reply. That is it!"
+  }
+}

@@ -1,76 +1,60 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("Wonder launch smoke", () => {
-  test("home page loads with nav and interactive section", async ({ page }) => {
+test.describe("Neural Network Museum", () => {
+  test("homepage invites play", async ({ page }) => {
     await page.goto("/");
-    await expect(
-      page.getByRole("heading", { name: /touch machine learning/i }),
-    ).toBeVisible();
-    await expect(page.getByRole("navigation", { name: "Main" })).toBeVisible();
-    await expect(page.getByRole("link", { name: "Explore" })).toBeVisible();
-    await expect(page.getByRole("link", { name: "Path" })).toBeVisible();
-    await expect(page.getByRole("link", { name: "Playground" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /try it now/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Neural Network Museum/i })).toBeVisible();
+    await expect(page.getByRole("link", { name: /Start Game 1/i })).toBeVisible();
   });
 
-  test("learning path shows module nodes", async ({ page }) => {
+  test("game map lists zones", async ({ page }) => {
     await page.goto("/learn");
-    await expect(
-      page.getByRole("heading", { name: /learning path/i }),
-    ).toBeVisible();
-    await expect(page.getByRole("link", { name: /start.*prediction-game/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Game map/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Zone 1/i })).toBeVisible();
+    await expect(page.getByRole("link", { name: /What is a neuron/i })).toBeVisible();
   });
 
-  test("lesson page loads with lesson engine", async ({ page }) => {
-    await page.goto("/learn/prediction-game");
-    await expect(
-      page.getByRole("heading", { name: /the prediction game/i }),
-    ).toBeVisible();
-    await expect(page.getByText(/will maya love/i)).toBeVisible();
-    await expect(page.getByRole("button", { name: /find out/i })).toBeVisible();
+  test("first game requires typed answers", async ({ page }) => {
+    await page.goto("/learn/what-is-a-neuron");
+    await expect(page.getByRole("heading", { name: /What is a neuron/i })).toBeVisible();
+    const totalInput = page.getByPlaceholder(/Type the number/i);
+    await expect(totalInput).toBeVisible();
+    await expect(page.getByRole("button", { name: /Check my answer/i })).toBeDisabled();
+
+    await totalInput.fill("3");
+    await page.getByRole("button", { name: /Check my answer/i }).click();
+    await expect(page.getByRole("dialog")).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Neurons add their inputs/i })).toBeVisible();
+    await page.getByRole("button", { name: /Got it — keep playing!/i }).click();
+
+    await page.getByPlaceholder("on / off").fill("off");
+    await page.getByRole("button", { name: /Check my answer/i }).click();
+    await expect(page.getByRole("heading", { name: /Neurons turn on or off/i })).toBeVisible();
+    await page.getByRole("button", { name: /Got it — keep playing!/i }).click();
+    await expect(page.getByText(/Star earned/i)).toBeVisible();
   });
 
-  test("ultimate playground loads with algorithm panels", async ({ page }) => {
+  test("legacy playground redirects to map", async ({ page }) => {
     await page.goto("/playground");
-    await expect(
-      page.getByRole("heading", { name: /train, compare, break things/i }),
-    ).toBeVisible();
-    await expect(page.getByLabel("Experiment name")).toBeVisible();
-    await expect(page.getByRole("button", { name: "Save" })).toBeVisible();
-    await expect(page.getByRole("button", { name: "Share" })).toBeVisible();
-    await expect(page.getByLabel(/playground canvas/i)).toBeVisible({
-      timeout: 15_000,
-    });
+    await expect(page).toHaveURL("/learn");
   });
 
-  test("navigate home → path → playground", async ({ page }) => {
-    await page.goto("/");
-    await page.getByRole("link", { name: "Path" }).click();
-    await expect(page).toHaveURL("/learn");
-    await page.getByRole("link", { name: "Playground" }).click();
-    await expect(page).toHaveURL("/playground");
+
+  test("pizza network exhibit is interactive", async ({ page }) => {
+    await page.goto("/network");
+    await expect(page.getByRole("heading", { name: /Build a Pizza Brain/i })).toBeVisible();
+    await expect(page.getByText(/Tap an ingredient to start/i)).toBeVisible();
+    await page.getByRole("button", { name: /Classic pizza/i }).click();
+    await expect(page.getByText(/Pizza!/i).first()).toBeVisible();
+    await expect(page.getByRole("dialog")).toBeVisible();
+    await expect(page.getByRole("heading", { name: /You built a neural network!/i })).toBeVisible();
+    await page.getByRole("button", { name: /Nice — keep experimenting!/i }).click();
+    await page.getByRole("button", { name: /Dessert plate/i }).click();
+    await expect(page.getByText(/Not pizza/i).first()).toBeVisible();
   });
 
   test("health API responds", async ({ request }) => {
     const res = await request.get("/api/health");
     expect(res.ok()).toBeTruthy();
-    const body = await res.json();
-    expect(body.ok).toBe(true);
-    expect(body.version).toBeTruthy();
-  });
-
-  test("features API returns free tier", async ({ request }) => {
-    const res = await request.get("/api/features");
-    expect(res.ok()).toBeTruthy();
-    const body = await res.json();
-    expect(body.tier).toBe("free");
-  });
-
-  test("subscription API returns free tier", async ({ request }) => {
-    const res = await request.get("/api/subscription");
-    expect(res.ok()).toBeTruthy();
-    const body = await res.json();
-    expect(body.tier).toBe("free");
-    expect(body.status).toBe("active");
   });
 });

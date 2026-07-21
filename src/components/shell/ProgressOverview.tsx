@@ -21,7 +21,7 @@ export function ProgressOverview() {
       <ProgressBar
         value={mastered}
         max={total}
-        label="Path progress"
+        label="Exhibits completed"
         tone="mint"
       />
     </div>

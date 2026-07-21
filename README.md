@@ -1,55 +1,53 @@
-# Wonder
+# Wonder · Neural Network Museum
 
-Interactive machine learning education — learn by touching, not reading.
+An interactive science museum for neural networks — 20 exhibits, zero lectures.
+
+## The Pulse (signature experience)
+
+**The one thing no other site has:** a single living cycle where cyan **signal** races forward, crimson **blame** rushes backward on the *same wires*, and the network **breathes** as weights update — all on one scrubbable timeline.
+
+Open `/` or `/pulse` and hit **Pulse →**.
+
+## What you can do
+
+Touch everything. Train XOR on the homepage. Scrub through every weight update. Watch gradients flow backward. Compare optimizers. Break a model with overfitting, then fix it with dropout. Slide a conv filter across digits. Unroll an RNN through time. Drag word embeddings. Pulse data through a transformer.
+
+## Five wings
+
+| Wing | Exhibits |
+|------|----------|
+| **Foundations** | Neuron, activations, forward propagation |
+| **Learning** | Loss, gradient descent, backprop, training, optimizers, learning rate |
+| **Generalization** | Overfitting, regularization, dropout, batch norm |
+| **Architecture** | Residual connections, CNNs, RNNs |
+| **Language** | Embeddings, attention, transformers, modern architectures |
 
 ## Stack
 
-- Next.js 16 (App Router), TypeScript, Tailwind v4
-- Motion (UI), Canvas 2D (simulations)
-- Zustand (client state), Zod (content + API schemas)
+- Next.js 16, TypeScript, Tailwind v4, Motion
+- Custom React simulations + SVG network canvas
+- Zustand progress, Zod content validation
 
 ## Quick start
 
 ```bash
 npm install
+npm run generate:lessons   # regenerate 20 exhibit JSON files
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
-
-## Verify (CI)
+## Verify
 
 ```bash
-npm run check
+npm run check:full
 ```
-
-Runs: content validation → typecheck → lint → tests → production build.
-
-Individual commands:
-
-| Command | Purpose |
-|---|---|
-| `npm run validate:content` | Zod-validate 26 lesson JSON files |
-| `npm run typecheck` | TypeScript strict |
-| `npm run test` | Vitest unit + API tests |
-| `npm run test:e2e` | Playwright smoke |
-| `npm run build` | Production build |
-
-## Environment
-
-Copy `.env.example` to `.env.local`. All vars optional for local dev except production JWT secret.
 
 ## Architecture
 
 ```
-content/lessons/     Lesson JSON (26)
-src/engines/       Lesson, quiz, simulation, presets
-src/lib/api/         REST handlers + Zod schemas
-src/components/    Shell, UI, playground
-docs/ENGINEERING_AUDIT.md   Latest audit
-docs/api/            API documentation
+content/lessons/          20 exhibit JSON files
+scripts/generate-nn-course.mjs
+src/components/neural/    20 interactive labs
+src/components/experience/ NetworkCanvas, FrameScrubber
+src/lib/nn/               Math, loss, surfaces, conv, sequence
 ```
-
-## Deploy
-
-Vercel-compatible. Set `WONDER_JWT_SECRET` in production. See `docs/ENGINEERING_AUDIT.md` deployment checklist.

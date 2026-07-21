@@ -1,0 +1,61 @@
+{
+  "id": "when-ai-is-wrong",
+  "slug": "when-ai-is-wrong",
+  "module": "see-ai",
+  "moduleTitle": "AI eyes",
+  "title": "Why does AI sometimes get things wrong?",
+  "kicker": "7",
+  "presetId": "game-oops",
+  "presetConfig": {},
+  "phases": {
+    "hook": {
+      "prompt": "Why does AI sometimes get things wrong?",
+      "tease": "If it only saw apples, it thinks everything is an apple."
+    },
+    "intuition": {
+      "blocks": [
+        {
+          "type": "concept",
+          "term": "Remember",
+          "definition": "If it only saw apples, it thinks everything is an apple."
+        }
+      ]
+    },
+    "playground": {
+      "mastery": {
+        "type": "flag",
+        "flag": "won"
+      }
+    },
+    "mistakes": {
+      "traps": []
+    },
+    "realWorld": {
+      "example": "Weird mistakes happen when training is too narrow.",
+      "domain": "Everyday AI"
+    },
+    "miniChallenge": {
+      "goal": "Earn the star!",
+      "mastery": {
+        "type": "flag",
+        "flag": "won"
+      }
+    },
+    "recap": {
+      "bullets": [
+        "If it only saw apples, it thinks everything is an apple."
+      ]
+    },
+    "quiz": {
+      "steps": []
+    }
+  },
+  "nav": {
+    "prev": "recognize-a-cat",
+    "next": "how-ai-reads-words"
+  },
+  "seo": {
+    "title": "Why does AI sometimes get things wrong? — Neural Network Museum",
+    "description": "If it only saw apples, it thinks everything is an apple."
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "id": "how-ai-pays-attention",
+  "slug": "how-ai-pays-attention",
+  "module": "talk-ai",
+  "moduleTitle": "AI words",
+  "title": "How does AI know what to focus on?",
+  "kicker": "9",
+  "presetId": "game-focus",
+  "presetConfig": {},
+  "phases": {
+    "hook": {
+      "prompt": "How does AI know what to focus on?",
+      "tease": "Some words matter more than others."
+    },
+    "intuition": {
+      "blocks": [
+        {
+          "type": "concept",
+          "term": "Remember",
+          "definition": "Some words matter more than others."
+        }
+      ]
+    },
+    "playground": {
+      "mastery": {
+        "type": "flag",
+        "flag": "won"
+      }
+    },
+    "mistakes": {
+      "traps": []
+    },
+    "realWorld": {
+      "example": "This helps AI understand sentences.",
+      "domain": "Everyday AI"
+    },
+    "miniChallenge": {
+      "goal": "Earn the star!",
+      "mastery": {
+        "type": "flag",
+        "flag": "won"
+      }
+    },
+    "recap": {
+      "bullets": [
+        "Some words matter more than others."
+      ]
+    },
+    "quiz": {
+      "steps": []
+    }
+  },
+  "nav": {
+    "prev": "how-ai-reads-words",
+    "next": "how-chatbots-work"
+  },
+  "seo": {
+    "title": "How does AI know what to focus on? — Neural Network Museum",
+    "description": "Some words matter more than others."
+  }
+}

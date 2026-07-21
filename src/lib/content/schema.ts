@@ -30,17 +30,49 @@ export const masteryRuleSchema = z.object({
 
 export type MasteryRule = z.infer<typeof masteryRuleSchema>;
 
-const contentBlockSchema = z.object({
-  type: z.enum(["text", "metaphor", "prediction-prompt"]),
-  body: z.string().optional(),
-  text: z.string().optional(),
-}).refine((b) => Boolean(b.body ?? b.text), { message: "block needs body or text" });
+const contentBlockSchema = z.discriminatedUnion("type", [
+  z.object({
+    type: z.literal("text"),
+    body: z.string().optional(),
+    text: z.string().optional(),
+  }).refine((b) => Boolean(b.body ?? b.text), { message: "block needs body or text" }),
+  z.object({
+    type: z.literal("metaphor"),
+    body: z.string().optional(),
+    text: z.string().optional(),
+  }).refine((b) => Boolean(b.body ?? b.text), { message: "block needs body or text" }),
+  z.object({
+    type: z.literal("prediction-prompt"),
+    body: z.string().optional(),
+    text: z.string().optional(),
+  }).refine((b) => Boolean(b.body ?? b.text), { message: "block needs body or text" }),
+  z.object({
+    type: z.literal("concept"),
+    term: z.string(),
+    definition: z.string(),
+  }),
+]);
 
 export const quizStepSchema = z.discriminatedUnion("type", [
   z.object({
     type: z.literal("predict"),
     prompt: z.string(),
     hint: z.string().optional(),
+    accept: z
+      .object({
+        type: z.enum(["boolean", "choice"]),
+        value: z.union([z.boolean(), z.string()]),
+      })
+      .optional(),
+    choices: z
+      .array(
+        z.object({
+          id: z.string(),
+          text: z.string(),
+          wrongReason: z.string().optional(),
+        }),
+      )
+      .optional(),
   }),
   z.object({
     type: z.literal("manipulate"),
@@ -74,6 +106,11 @@ export const lessonContentSchema = z.object({
   kicker: z.string(),
   presetId: presetIdSchema,
   presetConfig: z.record(z.string(), z.unknown()).default({}),
+  guide: z
+    .object({
+      steps: z.array(z.string()).min(1).max(6),
+    })
+    .optional(),
   narrative: z
     .object({
       thread: z.string(),
@@ -113,7 +150,7 @@ export const lessonContentSchema = z.object({
       bullets: z.array(z.string()).max(5),
     }),
     quiz: z.object({
-      steps: z.array(quizStepSchema).length(3),
+      steps: z.array(quizStepSchema).max(3),
     }),
     experiment: z
       .object({

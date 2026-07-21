@@ -1,0 +1,61 @@
+{
+  "id": "teach-with-examples",
+  "slug": "teach-with-examples",
+  "module": "see-ai",
+  "moduleTitle": "AI eyes",
+  "title": "Why does AI need lots of examples?",
+  "kicker": "5",
+  "presetId": "game-puppy",
+  "presetConfig": {},
+  "phases": {
+    "hook": {
+      "prompt": "Why does AI need lots of examples?",
+      "tease": "More pictures = smarter puppy."
+    },
+    "intuition": {
+      "blocks": [
+        {
+          "type": "concept",
+          "term": "Remember",
+          "definition": "More pictures = smarter puppy."
+        }
+      ]
+    },
+    "playground": {
+      "mastery": {
+        "type": "flag",
+        "flag": "won"
+      }
+    },
+    "mistakes": {
+      "traps": []
+    },
+    "realWorld": {
+      "example": "That is why apps need so much data.",
+      "domain": "Everyday AI"
+    },
+    "miniChallenge": {
+      "goal": "Earn the star!",
+      "mastery": {
+        "type": "flag",
+        "flag": "won"
+      }
+    },
+    "recap": {
+      "bullets": [
+        "More pictures = smarter puppy."
+      ]
+    },
+    "quiz": {
+      "steps": []
+    }
+  },
+  "nav": {
+    "prev": "how-ai-learns",
+    "next": "recognize-a-cat"
+  },
+  "seo": {
+    "title": "Why does AI need lots of examples? — Neural Network Museum",
+    "description": "More pictures = smarter puppy."
+  }
+}

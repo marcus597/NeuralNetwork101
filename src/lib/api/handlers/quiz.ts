@@ -62,7 +62,10 @@ function compareMetric(
   operator: string,
   value: number,
 ): boolean {
-  const v = snapshot.metrics[metric];
+  let v = snapshot.metrics[metric];
+  if (v === undefined && snapshot.flags[metric] !== undefined) {
+    v = snapshot.flags[metric] ? 1 : 0;
+  }
   if (v === undefined) return false;
   switch (operator) {
     case ">=":
@@ -132,12 +135,19 @@ function validateManipulateStep(
     correct,
     stepType: "manipulate",
     feedback: correct
-      ? "You manipulated the simulation correctly."
-      : `Keep adjusting — ${target.metric} needs to be ${target.operator} ${target.value}.`,
+      ? "You did it — the lab responded to your change."
+      : "Not yet — keep adjusting until the numbers shift the way you expected.",
     causalExplanation: correct
       ? undefined
-      : `The metric ${target.metric} reflects the model state. Change inputs until the threshold is met.`,
+      : "Try moving the sliders or dragging points — the lab needs your input first.",
   };
+}
+
+function formatWrongReason(raw?: string): string {
+  const trimmed = raw?.trim();
+  if (!trimmed) return "This would only be true if something else were going on.";
+  if (/^This would only be true if/i.test(trimmed)) return trimmed;
+  return `This would only be true if ${trimmed.charAt(0).toLowerCase()}${trimmed.slice(1)}`;
 }
 
 function validateExplainStep(
@@ -154,12 +164,11 @@ function validateExplainStep(
     correct,
     stepType: "explain",
     feedback: correct
-      ? "Exactly — that's the causal story."
-      : "That explanation doesn't fit what you observed.",
+      ? "Yes — that explains what you saw."
+      : "That story doesn't match what the lab showed.",
     causalExplanation: correct
       ? undefined
-      : wrongChoice?.wrongReason ??
-        `"${wrongChoice?.text ?? "That choice"}" would require different behavior in the simulation.`,
+      : formatWrongReason(wrongChoice?.wrongReason),
   };
 }
 

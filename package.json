@@ -13,7 +13,7 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "validate:content": "node scripts/validate-content.mjs",
-    "generate:lessons": "node scripts/generate-lessons.mjs",
+    "generate:lessons": "node scripts/generate-nn-course.mjs",
     "check": "npm run validate:content && npm run typecheck && npm run lint && npm test && npm run build",
     "check:full": "npm run check && npm run test:e2e"
   },

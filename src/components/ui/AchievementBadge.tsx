@@ -17,7 +17,7 @@ export function AchievementBadge({
         "inline-flex min-h-11 items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium",
         earned
           ? "border-mint/40 bg-mint/10 text-mint"
-          : "border-white/10 bg-white/5 text-ink-muted",
+          : "border-border-subtle bg-bg-muted text-ink-muted",
         className,
       )}
     >

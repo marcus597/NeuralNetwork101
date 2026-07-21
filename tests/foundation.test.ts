@@ -52,13 +52,14 @@ describe("evaluateMastery", () => {
 });
 
 describe("lessonContentSchema", () => {
-  it("parses generated training lesson", () => {
+  it("parses generated neuron game", () => {
     const raw = fs.readFileSync(
-      path.join(process.cwd(), "content/lessons/training.json"),
+      path.join(process.cwd(), "content/lessons/what-is-a-neuron.json"),
       "utf-8",
     );
     const lesson = lessonContentSchema.parse(JSON.parse(raw));
-    expect(lesson.slug).toBe("training");
-    expect(lesson.phases.quiz.steps).toHaveLength(3);
+    expect(lesson.slug).toBe("what-is-a-neuron");
+    expect(lesson.presetId).toBe("game-neuron");
+    expect(lesson.title).toMatch(/neuron/i);
   });
 });

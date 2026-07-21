@@ -17,19 +17,11 @@ export function PageHeader({
   children,
 }: PageHeaderProps) {
   return (
-    <header className={cn("mb-8 sm:mb-10", className)}>
-      {kicker && (
-        <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-violet">
-          {kicker}
-        </p>
-      )}
-      <h1 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-        {title}
-      </h1>
+    <header className={cn("mb-10 sm:mb-14", className)}>
+      {kicker && <p className="museum-label mb-3">{kicker}</p>}
+      <h1 className="display-title max-w-3xl">{title}</h1>
       {description && (
-        <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-ink-muted">
-          {description}
-        </p>
+        <p className="body-lg mt-4 max-w-2xl">{description}</p>
       )}
       {children}
     </header>

@@ -25,12 +25,11 @@ export type FeaturesResponse = z.infer<typeof featuresResponseSchema>;
 export type FeatureFlag = z.infer<typeof featureFlagSchema>;
 
 export const FEATURE_FLAGS: FeatureFlag[] = [
-  { id: "all_lessons", label: "All lessons", free: true, pro: true },
-  { id: "playground", label: "Ultimate playground", free: true, pro: true },
-  { id: "save_experiments", label: "Save experiments", free: true, pro: true },
-  { id: "share_experiments", label: "Share experiments", free: true, pro: true },
+  { id: "full_museum", label: "Full museum (20 exhibits)", free: true, pro: true },
+  { id: "interactive_labs", label: "All interactive simulations", free: true, pro: true },
+  { id: "training_scrubber", label: "Frame-by-frame training replay", free: true, pro: true },
+  { id: "architecture_wing", label: "CNN, RNN, transformer exhibits", free: true, pro: true },
   { id: "cloud_sync", label: "Cloud progress sync", free: false, pro: true },
-  { id: "advanced_datasets", label: "Advanced dataset presets", free: false, pro: true },
   { id: "export_notebook", label: "Export to notebook", free: false, pro: true },
   { id: "priority_support", label: "Priority support", free: false, pro: true },
 ];

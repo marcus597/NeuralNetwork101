@@ -52,7 +52,7 @@ export function Tooltip({
             exit={{ opacity: 0, y: side === "top" ? 4 : -4, scale: 0.96 }}
             transition={easeOut}
             className={cn(
-              "pointer-events-none absolute z-50 max-w-[220px] rounded-lg border border-white/10 bg-bg-elevated px-3 py-2 text-xs leading-relaxed text-ink-muted shadow-xl",
+              "pointer-events-none absolute z-50 max-w-[220px] rounded-lg border border-border-subtle bg-bg-elevated px-3 py-2 text-xs leading-relaxed text-ink-muted shadow-xl",
               side === "top" && "bottom-full left-1/2 mb-2 -translate-x-1/2",
               side === "bottom" && "top-full left-1/2 mt-2 -translate-x-1/2",
             )}

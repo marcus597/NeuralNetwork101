@@ -17,16 +17,16 @@ export function MobileBanner() {
   return (
     <div
       role="status"
-      className="border-b border-white/5 bg-bg-elevated/80 px-4 py-2.5 text-center text-xs text-ink-muted backdrop-blur-sm"
+      className="border-b-[3px] border-border-subtle bg-bg-muted px-4 py-2.5 text-center text-xs font-bold text-ink-muted"
     >
-      <span>Wonder shines on a larger screen — lessons still work here.</span>
+      <span>Wonder shines on a larger screen — exhibits still work here.</span>
       <button
         type="button"
         onClick={() => {
           localStorage.setItem("wonder-mobile-banner", "1");
           setShow(false);
         }}
-        className="focus-ring ml-3 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-ink hover:bg-white/5"
+        className="focus-ring ml-3 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-ink hover:bg-bg-muted"
         aria-label="Dismiss"
       >
         <X className="h-3 w-3" />

@@ -13,28 +13,32 @@ type LiveHintProps = {
 
 const toneStyles = {
   neutral: {
-    border: "border-white/10",
+    border: "border-border-subtle",
+    bg: "bg-bg-surface",
     text: "text-ink-muted",
     icon: Lightbulb,
     iconColor: "text-ink-subtle",
   },
   success: {
-    border: "border-mint/25",
-    text: "text-mint",
+    border: "border-nn-activation/25",
+    bg: "bg-nn-signal-soft",
+    text: "text-nn-activation",
     icon: CheckCircle2,
-    iconColor: "text-mint",
+    iconColor: "text-nn-activation",
   },
   warning: {
-    border: "border-gold/25",
+    border: "border-gold/30",
+    bg: "bg-gold/8",
     text: "text-gold",
     icon: AlertTriangle,
     iconColor: "text-gold",
   },
   discovery: {
-    border: "border-violet/30",
-    text: "text-violet",
+    border: "border-discover/25",
+    bg: "bg-discover-soft",
+    text: "text-discover",
     icon: Sparkles,
-    iconColor: "text-violet",
+    iconColor: "text-discover",
   },
 };
 
@@ -61,8 +65,9 @@ export function LiveHint({
             exit={{ opacity: 0, y: -4 }}
             transition={easeOut}
             className={cn(
-              "flex items-start gap-3 rounded-xl border bg-bg-elevated/50 px-4 py-3 text-sm leading-relaxed backdrop-blur-sm",
+              "flex items-start gap-3 rounded-2xl border px-4 py-3 text-sm leading-relaxed shadow-sm",
               style.border,
+              style.bg,
               style.text,
             )}
           >

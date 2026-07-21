@@ -20,15 +20,9 @@ export async function createBookmark(
   body: BookmarkCreateRequest,
 ): Promise<BookmarkRecord> {
   const ownerId = getOwnerId(ctx);
-  if (body.type === "lesson") {
-    return getStorage().createBookmark(ownerId, {
-      type: "lesson",
-      lessonSlug: body.lessonSlug,
-    });
-  }
   return getStorage().createBookmark(ownerId, {
-    type: "playground",
-    playgroundId: body.playgroundId,
+    type: "lesson",
+    lessonSlug: body.lessonSlug,
   });
 }
 

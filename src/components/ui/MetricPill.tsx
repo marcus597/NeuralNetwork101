@@ -23,7 +23,7 @@ export function MetricPill({
   return (
     <div
       className={cn(
-        "rounded-full border border-white/8 bg-bg-deep/75 px-3 py-1.5 text-xs backdrop-blur-md",
+        "rounded-full border border-border-subtle bg-bg-surface px-3 py-1.5 text-xs backdrop-blur-md",
         className,
       )}
     >

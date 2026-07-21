@@ -2,134 +2,137 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { motion } from "motion/react";
+import { Lock } from "lucide-react";
 import manifest from "../../../content/curriculum/manifest.json";
+import { isLessonUnlocked } from "@/lib/content/curriculum-order";
+import { getGameArt } from "@/lib/content/game-art";
+import { GameThumbnail } from "@/components/graphics/GameThumbnail";
+import { MapTrail } from "@/components/graphics/MapTrail";
+import { ZoneBanner } from "@/components/graphics/ZoneBanner";
+import { StarMeter } from "@/components/ui/StarMeter";
+import { ComicStar } from "@/components/graphics/ComicStar";
 import { useProgressStore } from "@/stores/progress-store";
+import { cn } from "@/lib/cn";
 
-/** One anchor lesson per module for the visual path */
-const ANCHOR_SLUGS = [
-  "prediction-game",
-  "training",
-  "underfitting",
-  "knn",
-  "svm",
-  "gradient-descent",
-  "model-selection",
-];
+type LessonMeta = { title: string; kicker?: string };
 
-const TITLE_BY_SLUG: Record<string, string> = {
-  "prediction-game": "Start",
-  training: "Training",
-  underfitting: "Underfit",
-  knn: "KNN",
-  svm: "SVM",
-  "gradient-descent": "Gradients",
-  "model-selection": "Select",
+type SkillPathProps = {
+  lessonMeta: Record<string, LessonMeta>;
 };
 
-export function SkillPath() {
+export function SkillPath({ lessonMeta }: SkillPathProps) {
   const [active, setActive] = useState<string | null>(null);
   const lessons = useProgressStore((s) => s.lessons);
-  const markVisited = useProgressStore((s) => s.markVisited);
 
-  const nodes = useMemo(() => {
-    const slugs = ANCHOR_SLUGS.filter((slug) =>
-      manifest.modules.some((m) => m.lessons.includes(slug)),
-    );
-    const count = slugs.length;
-    return slugs.map((slug, index) => ({
-      slug,
-      title: TITLE_BY_SLUG[slug] ?? slug,
-      x: 8 + (84 / Math.max(1, count - 1)) * index,
-      y: index % 2 === 0 ? 50 : 30,
-    }));
-  }, []);
+  const wings = useMemo(
+    () =>
+      manifest.modules.map((mod) => ({
+        ...mod,
+        games: mod.lessons.map((slug) => ({
+          slug,
+          title: lessonMeta[slug]?.title ?? slug,
+          number: lessonMeta[slug]?.kicker ?? "?",
+        })),
+      })),
+    [lessonMeta],
+  );
+
+  const stars = wings.reduce(
+    (n, w) => n + w.games.filter((g) => lessons[g.slug]?.mastered).length,
+    0,
+  );
+  const total = wings.reduce((n, w) => n + w.games.length, 0);
 
   return (
-    <div className="space-y-6">
-      <div className="panel relative mx-auto aspect-[2/1] w-full max-w-4xl overflow-hidden">
-        <svg viewBox="0 0 100 60" className="absolute inset-0 h-full w-full" aria-hidden>
-          <motion.path
-            d="M 8 50 C 18 42, 22 36, 28 35 S 40 48, 50 50 S 62 38, 72 35 S 82 42, 92 30"
-            fill="none"
-            stroke="rgba(139,124,255,0.25)"
-            strokeWidth="0.6"
-            strokeDasharray="2 2"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-          />
-        </svg>
+    <div className="space-y-10">
+      <StarMeter collected={stars} total={total} />
 
-        {nodes.map((node, index) => {
-          const prog = lessons[node.slug];
-          const lit = prog?.visited || prog?.mastered || active === node.slug;
-          const mastered = prog?.mastered;
-          const color = mastered ? "#3dffb5" : lit ? "#8b7cff" : "#94a3b8";
+      {wings.map((wing, wingIdx) => (
+        <section key={wing.id}>
+          <ZoneBanner zoneId={wing.id} className="mb-5" />
 
-          return (
-            <div
-              key={node.slug}
-              className="absolute -translate-x-1/2 -translate-y-1/2"
-              style={{ left: `${node.x}%`, top: `${node.y}%` }}
-            >
-              <Link
-                href={`/learn/${node.slug}`}
-                className="focus-ring group block"
-                aria-label={`${node.title} — ${node.slug}`}
-                onMouseEnter={() => {
-                  setActive(node.slug);
-                  markVisited(node.slug);
-                }}
-                onMouseLeave={() => setActive(null)}
-              >
-                <motion.div
-                  animate={{
-                    scale: active === node.slug ? 1.12 : 1,
-                    boxShadow:
-                      active === node.slug
-                        ? `0 0 28px ${color}66`
-                        : "0 0 0px transparent",
-                  }}
-                  className="flex h-14 w-14 items-center justify-center rounded-full border-2 text-xs font-bold sm:h-16 sm:w-16"
-                  style={{
-                    borderColor: lit ? color : "rgba(255,255,255,0.15)",
-                    backgroundColor: lit ? `${color}22` : "rgba(255,255,255,0.04)",
-                    color: lit ? color : "#94a3b8",
-                  }}
+          <div>
+            {wing.games.map((game, gameIdx) => {
+              const prog = lessons[game.slug];
+              const unlocked = isLessonUnlocked(game.slug, lessons);
+              const done = prog?.mastered;
+              const art = getGameArt(game.slug);
+              const isLastInWing = gameIdx === wing.games.length - 1;
+              const isLastWing = wingIdx === wings.length - 1;
+
+              const card = (
+                <div
+                  className={cn(
+                    "relative flex items-center gap-4 rounded-lg border-[3px] bg-bg-surface p-4 shadow-sm transition-all",
+                    unlocked
+                      ? "border-border-subtle hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-md"
+                      : "border-border-subtle opacity-55",
+                    active === game.slug && unlocked && "bg-discover-soft shadow-md",
+                    done && "ring-2 ring-gold/40",
+                  )}
                 >
-                  {index + 1}
-                </motion.div>
-                <p className="mt-2 max-w-[5rem] text-center text-xs text-ink-muted group-hover:text-ink">
-                  {node.title}
-                </p>
-              </Link>
-            </div>
-          );
-        })}
-      </div>
-
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {manifest.modules.map((mod) => (
-          <div key={mod.id} className="rounded-xl border border-white/8 bg-bg-panel/60 p-4">
-            <p className="text-xs font-semibold uppercase tracking-wider text-violet">
-              {mod.title}
-            </p>
-            <ul className="mt-2 space-y-1">
-              {mod.lessons.map((slug) => (
-                <li key={slug}>
-                  <Link
-                    href={`/learn/${slug}`}
-                    className="focus-ring text-sm text-ink-muted hover:text-ink"
+                  {/* Game number ribbon */}
+                  <span
+                    className="absolute -left-1 -top-2 rounded-md border-2 border-border-subtle px-1.5 py-0.5 text-[10px] font-bold shadow-sm"
+                    style={{ background: art.bg, color: art.accent }}
+                    aria-hidden
                   >
-                    {slug.replace(/-/g, " ")}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+                    #{game.number}
+                  </span>
+
+                  {unlocked ? (
+                    <GameThumbnail slug={game.slug} size={52} />
+                  ) : (
+                    <span className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-md border-[3px] border-border-subtle bg-bg-inset shadow-sm">
+                      <Lock className="h-5 w-5 text-ink-subtle" aria-hidden />
+                    </span>
+                  )}
+
+                  <div className="min-w-0 flex-1">
+                    <p className="font-bold leading-snug text-ink">{game.title}</p>
+                    {done && (
+                      <p className="mt-0.5 flex items-center gap-1 text-xs font-bold text-nn-activation">
+                        <ComicStar size={14} /> Mastered
+                      </p>
+                    )}
+                  </div>
+
+                  {done ? (
+                    <ComicStar size={28} />
+                  ) : unlocked ? (
+                    <span
+                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border-2 border-border-subtle text-sm font-bold shadow-sm"
+                      style={{ background: art.bg, color: art.accent }}
+                      aria-hidden
+                    >
+                      →
+                    </span>
+                  ) : null}
+                </div>
+              );
+
+              return (
+                <div key={game.slug}>
+                  {unlocked ? (
+                    <Link
+                      href={`/learn/${game.slug}`}
+                      className="focus-ring block"
+                      onMouseEnter={() => setActive(game.slug)}
+                      onMouseLeave={() => setActive(null)}
+                    >
+                      {card}
+                    </Link>
+                  ) : (
+                    <div title="Play the previous game first">{card}</div>
+                  )}
+                  {!isLastInWing && <MapTrail />}
+                  {isLastInWing && !isLastWing && <MapTrail variant="dashed" className="py-3" />}
+                </div>
+              );
+            })}
           </div>
-        ))}
-      </div>
+        </section>
+      ))}
     </div>
   );
 }

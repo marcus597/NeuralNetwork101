@@ -43,7 +43,7 @@ export function TimelineControls({
         variant="secondary"
         size="sm"
         onClick={playing ? onPause : onPlay}
-        className="min-w-[5.5rem] flex-1 bg-sky/15 text-sky ring-1 ring-sky/20 hover:bg-sky/25"
+        className="min-w-[5.5rem] flex-1 bg-nn-input-soft text-nn-input ring-1 ring-nn-input/20 hover:bg-nn-input/10"
       >
         {playing ? (
           <Pause className="mr-1.5 h-4 w-4" aria-hidden />

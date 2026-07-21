@@ -1,7 +1,6 @@
-"use client";
+import { redirect } from "next/navigation";
 
-import { PlaygroundShell } from "@/components/playground/PlaygroundShell";
-
+/** Legacy routes redirect to the NN course. */
 export default function PlaygroundPage() {
-  return <PlaygroundShell />;
+  redirect("/learn");
 }

@@ -91,7 +91,7 @@ export const useProgressStore = create<ProgressState & ProgressActions>()(
               [slug]: {
                 ...current,
                 visited: true,
-                mastered: true,
+                // Lab/challenge events are tracked; "mastered" requires quiz pass.
                 masteryEvents: eventId
                   ? [...new Set([...current.masteryEvents, eventId])]
                   : current.masteryEvents,
@@ -106,7 +106,9 @@ export const useProgressStore = create<ProgressState & ProgressActions>()(
             ...s.lessons,
             [slug]: {
               ...(s.lessons[slug] ?? emptyLesson()),
+              visited: true,
               quizPassed: true,
+              mastered: true,
             },
           },
         })),

@@ -4,8 +4,8 @@ import { cn } from "@/lib/cn";
 type CalloutTone = "neutral" | "discovery" | "warning" | "success";
 
 const toneStyles: Record<CalloutTone, string> = {
-  neutral: "border-white/10 text-ink-muted",
-  discovery: "border-violet/40 text-violet",
+  neutral: "border-border-subtle text-ink-muted",
+  discovery: "border-accent/40 text-accent",
   warning: "border-gold/40 text-gold",
   success: "border-mint/40 text-mint",
 };
@@ -26,7 +26,7 @@ export function Callout({
   return (
     <div
       className={cn(
-        "rounded-xl border bg-bg-elevated/60 px-4 py-3 text-sm",
+        "rounded-lg border-[3px] bg-bg-elevated px-4 py-3 text-sm font-bold shadow-sm",
         toneStyles[tone],
         className,
       )}

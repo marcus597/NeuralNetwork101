@@ -1,0 +1,61 @@
+{
+  "id": "why-many-neurons",
+  "slug": "why-many-neurons",
+  "module": "meet-ai",
+  "moduleTitle": "Meet the brain",
+  "title": "Why do we need many neurons?",
+  "kicker": "2",
+  "presetId": "game-team",
+  "presetConfig": {},
+  "phases": {
+    "hook": {
+      "prompt": "Why do we need many neurons?",
+      "tease": "One cell is weak. A team is strong."
+    },
+    "intuition": {
+      "blocks": [
+        {
+          "type": "concept",
+          "term": "Remember",
+          "definition": "One cell is weak. A team is strong."
+        }
+      ]
+    },
+    "playground": {
+      "mastery": {
+        "type": "flag",
+        "flag": "won"
+      }
+    },
+    "mistakes": {
+      "traps": []
+    },
+    "realWorld": {
+      "example": "ChatGPT uses a huge team of cells working together.",
+      "domain": "Everyday AI"
+    },
+    "miniChallenge": {
+      "goal": "Earn the star!",
+      "mastery": {
+        "type": "flag",
+        "flag": "won"
+      }
+    },
+    "recap": {
+      "bullets": [
+        "One cell is weak. A team is strong."
+      ]
+    },
+    "quiz": {
+      "steps": []
+    }
+  },
+  "nav": {
+    "prev": "what-is-a-neuron",
+    "next": "how-does-ai-guess"
+  },
+  "seo": {
+    "title": "Why do we need many neurons? — Neural Network Museum",
+    "description": "One cell is weak. A team is strong."
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "id": "recognize-a-cat",
+  "slug": "recognize-a-cat",
+  "module": "see-ai",
+  "moduleTitle": "AI eyes",
+  "title": "How does AI recognize a cat?",
+  "kicker": "6",
+  "presetId": "game-cat",
+  "presetConfig": {},
+  "phases": {
+    "hook": {
+      "prompt": "How does AI recognize a cat?",
+      "tease": "It searches the picture bit by bit."
+    },
+    "intuition": {
+      "blocks": [
+        {
+          "type": "concept",
+          "term": "Remember",
+          "definition": "It searches the picture bit by bit."
+        }
+      ]
+    },
+    "playground": {
+      "mastery": {
+        "type": "flag",
+        "flag": "won"
+      }
+    },
+    "mistakes": {
+      "traps": []
+    },
+    "realWorld": {
+      "example": "Photo apps and self-driving cars do this.",
+      "domain": "Everyday AI"
+    },
+    "miniChallenge": {
+      "goal": "Earn the star!",
+      "mastery": {
+        "type": "flag",
+        "flag": "won"
+      }
+    },
+    "recap": {
+      "bullets": [
+        "It searches the picture bit by bit."
+      ]
+    },
+    "quiz": {
+      "steps": []
+    }
+  },
+  "nav": {
+    "prev": "teach-with-examples",
+    "next": "when-ai-is-wrong"
+  },
+  "seo": {
+    "title": "How does AI recognize a cat? — Neural Network Museum",
+    "description": "It searches the picture bit by bit."
+  }
+}

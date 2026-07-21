@@ -1,0 +1,61 @@
+{
+  "id": "how-ai-learns",
+  "slug": "how-ai-learns",
+  "module": "meet-ai",
+  "moduleTitle": "Meet the brain",
+  "title": "How does AI learn from mistakes?",
+  "kicker": "4",
+  "presetId": "game-robot",
+  "presetConfig": {},
+  "phases": {
+    "hook": {
+      "prompt": "How does AI learn from mistakes?",
+      "tease": "Show it a better answer and it remembers."
+    },
+    "intuition": {
+      "blocks": [
+        {
+          "type": "concept",
+          "term": "Remember",
+          "definition": "Show it a better answer and it remembers."
+        }
+      ]
+    },
+    "playground": {
+      "mastery": {
+        "type": "flag",
+        "flag": "won"
+      }
+    },
+    "mistakes": {
+      "traps": []
+    },
+    "realWorld": {
+      "example": "No math homework — just lots of examples.",
+      "domain": "Everyday AI"
+    },
+    "miniChallenge": {
+      "goal": "Earn the star!",
+      "mastery": {
+        "type": "flag",
+        "flag": "won"
+      }
+    },
+    "recap": {
+      "bullets": [
+        "Show it a better answer and it remembers."
+      ]
+    },
+    "quiz": {
+      "steps": []
+    }
+  },
+  "nav": {
+    "prev": "how-does-ai-guess",
+    "next": "teach-with-examples"
+  },
+  "seo": {
+    "title": "How does AI learn from mistakes? — Neural Network Museum",
+    "description": "Show it a better answer and it remembers."
+  }
+}

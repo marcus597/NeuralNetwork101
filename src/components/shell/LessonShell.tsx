@@ -20,10 +20,10 @@ export function LessonShell({
 }: LessonShellProps) {
   return (
     <article className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
-      <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-violet">
+      <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">
         {kicker}
       </p>
-      <h1 className="mb-8 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+      <h1 className="mb-8 text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
         {title}
       </h1>
 
@@ -31,13 +31,13 @@ export function LessonShell({
 
       <nav
         aria-label="Lesson navigation"
-        className="mt-12 flex items-center justify-between gap-4 border-t border-white/8 pt-8"
+        className="mt-12 flex items-center justify-between gap-4 border-t border-border-subtle pt-8"
       >
         {prev ? (
           <Link
             href={prev.href}
             className={cn(
-              "focus-ring group inline-flex min-h-11 items-center gap-2 rounded-full border border-white/10 px-4 py-2.5 text-sm text-ink-muted transition-colors hover:border-white/16 hover:text-ink active:scale-[0.98]",
+              "focus-ring group inline-flex min-h-11 items-center gap-2 rounded-full border border-border-subtle px-4 py-2.5 text-sm text-ink-muted transition-colors hover:border-border-medium hover:text-ink active:scale-[0.98]",
             )}
           >
             <ArrowLeft
@@ -54,7 +54,7 @@ export function LessonShell({
           <Link
             href={next.href}
             className={cn(
-              "focus-ring group inline-flex min-h-11 items-center gap-2 rounded-full bg-violet/15 px-4 py-2.5 text-sm font-medium text-violet ring-1 ring-violet/20 transition-all hover:bg-violet/25 hover:ring-violet/30 active:scale-[0.98]",
+              "focus-ring group inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-4 py-2.5 text-sm font-medium text-on-accent transition-all hover:bg-accent/90 active:scale-[0.98]",
             )}
           >
             {next.label}

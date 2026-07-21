@@ -1,72 +1,32 @@
 {
-  "version": 1,
+  "version": 4,
   "modules": [
     {
-      "id": "world",
-      "title": "The World",
+      "id": "meet-ai",
+      "title": "Meet the brain",
       "lessons": [
-        "prediction-game",
-        "data",
-        "features",
-        "labels"
+        "what-is-a-neuron",
+        "why-many-neurons",
+        "how-does-ai-guess",
+        "how-ai-learns"
       ]
     },
     {
-      "id": "evaluation",
-      "title": "Honest Evaluation",
+      "id": "see-ai",
+      "title": "AI eyes",
       "lessons": [
-        "training",
-        "testing",
-        "evaluation-metrics"
+        "teach-with-examples",
+        "recognize-a-cat",
+        "when-ai-is-wrong"
       ]
     },
     {
-      "id": "fit",
-      "title": "The Fit Tension",
+      "id": "talk-ai",
+      "title": "AI words",
       "lessons": [
-        "underfitting",
-        "overfitting",
-        "bias-variance",
-        "cross-validation"
-      ]
-    },
-    {
-      "id": "toolbox",
-      "title": "Your First Toolbox",
-      "lessons": [
-        "knn",
-        "linear-regression",
-        "logistic-regression",
-        "decision-trees",
-        "random-forests",
-        "naive-bayes"
-      ]
-    },
-    {
-      "id": "geometry",
-      "title": "Geometry & Groups",
-      "lessons": [
-        "svm",
-        "kmeans"
-      ]
-    },
-    {
-      "id": "engine",
-      "title": "The Engine Room",
-      "lessons": [
-        "gradient-descent",
-        "neural-networks"
-      ]
-    },
-    {
-      "id": "production",
-      "title": "Making It Real",
-      "lessons": [
-        "model-selection",
-        "feature-engineering",
-        "pipelines",
-        "deployment",
-        "ethics"
+        "how-ai-reads-words",
+        "how-ai-pays-attention",
+        "how-chatbots-work"
       ]
     }
   ]

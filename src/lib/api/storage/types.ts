@@ -1,17 +1,10 @@
 import type { BookmarkRecord } from "@/lib/api/schemas/bookmark";
-import type { PlaygroundRecord } from "@/lib/api/schemas/playground";
 import type { ProgressStateDto } from "@/lib/api/schemas/progress";
 import type { UserSettings } from "@/lib/api/schemas/settings";
 
 export type StoredProgress = {
   progress: ProgressStateDto;
   updatedAt: string;
-};
-
-export type ShareRecord = {
-  playgroundId: string;
-  ownerId: string;
-  expiresAt: string;
 };
 
 export interface StorageAdapter {
@@ -23,24 +16,6 @@ export interface StorageAdapter {
     lessonSlug: string,
     patch: Partial<ProgressStateDto["lessons"][string]>,
   ): Promise<StoredProgress>;
-
-  // Playgrounds
-  listPlaygrounds(ownerId: string): Promise<PlaygroundRecord[]>;
-  getPlayground(ownerId: string, id: string): Promise<PlaygroundRecord | null>;
-  createPlayground(
-    ownerId: string,
-    data: Omit<PlaygroundRecord, "id" | "ownerId" | "createdAt" | "updatedAt">,
-  ): Promise<PlaygroundRecord>;
-  deletePlayground(ownerId: string, id: string): Promise<boolean>;
-
-  // Share tokens
-  createShareToken(
-    playgroundId: string,
-    ownerId: string,
-    expiresAt: string,
-  ): Promise<string>;
-  getShareRecord(token: string): Promise<ShareRecord | null>;
-  getPlaygroundByShareToken(token: string): Promise<PlaygroundRecord | null>;
 
   // Bookmarks
   listBookmarks(ownerId: string): Promise<BookmarkRecord[]>;

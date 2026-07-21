@@ -38,13 +38,13 @@ export function TabGroup({
             onClick={() => onChange(tab.id)}
             className={cn(
               "focus-ring relative min-h-11 rounded-full px-4 py-2.5 text-sm font-medium transition-colors active:scale-[0.98]",
-              isActive ? "text-white" : "text-ink-muted hover:text-ink",
+              isActive ? "text-on-accent" : "text-ink-muted hover:text-ink",
             )}
           >
             {isActive && (
               <motion.span
                 layoutId="tab-pill"
-                className="absolute inset-0 rounded-full bg-white/10"
+                className="absolute inset-0 rounded-full bg-accent"
                 transition={springSnappy}
               />
             )}

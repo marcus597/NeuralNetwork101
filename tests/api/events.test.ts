@@ -8,7 +8,7 @@ describe("analytics ingestion", () => {
       events: [
         {
           name: "lesson_started",
-          lessonSlug: "classification",
+          lessonSlug: "what-is-a-neuron",
           ts: Date.now(),
           sessionId: "test-session",
         },

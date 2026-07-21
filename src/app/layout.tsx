@@ -1,12 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Bangers, Comic_Neue, Geist_Mono } from "next/font/google";
 import { SiteNav } from "@/components/shell/SiteNav";
 import { MobileBanner } from "@/components/shell/MobileBanner";
 import { Providers } from "@/components/shell/Providers";
+import { ComicBackdrop } from "@/components/graphics/ComicBackdrop";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const bangers = Bangers({
+  weight: "400",
+  variable: "--font-bangers",
+  subsets: ["latin"],
+});
+
+const comicNeue = Comic_Neue({
+  weight: ["400", "700"],
+  variable: "--font-comic",
   subsets: ["latin"],
 });
 
@@ -17,15 +25,15 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Wonder — Learn ML by Touching It",
+    default: "Neural Network Museum",
     template: "%s · Wonder",
   },
   description:
-    "An interactive machine learning lab for Reel. Drag boundaries, tune neurons, chase error — and understand why.",
+    "10 playful mini-games that teach how AI works — no math, no jargon, just play.",
   openGraph: {
-    title: "Wonder — Learn ML by Touching It",
+    title: "Wonder — Neural Network Museum",
     description:
-      "Interactive ML intuition. No lectures upfront — experiment first.",
+      "Touch, train, and discover neural networks — from a single neuron to transformers.",
     type: "website",
   },
 };
@@ -38,13 +46,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${bangers.variable} ${comicNeue.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <Providers>
+          <ComicBackdrop />
           <SiteNav />
           <MobileBanner />
-          <main className="flex-1">{children}</main>
+          <main className="relative z-10 flex-1">{children}</main>
         </Providers>
       </body>
     </html>

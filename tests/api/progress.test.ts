@@ -43,7 +43,7 @@ describe("progress API handlers", () => {
     await putProgress(ctx, {
       schemaVersion: 1,
       lessons: {
-        classification: {
+        "what-is-a-neuron": {
           visited: true,
           mastered: true,
           quizPassed: false,
@@ -51,22 +51,22 @@ describe("progress API handlers", () => {
           masteryEvents: ["hidden-75"],
         },
       },
-      path: { lastSlug: "classification" },
+      path: { lastSlug: "what-is-a-neuron" },
       flags: { mobileBannerDismissed: false },
     });
 
     const result = await getProgress(ctx);
-    expect(result.progress.lessons.classification?.mastered).toBe(true);
+    expect(result.progress.lessons["what-is-a-neuron"]?.mastered).toBe(true);
   });
 
   it("patches single lesson progress", async () => {
     const ctx = mockCtx("550e8400-e29b-41d4-a716-446655440000");
-    const result = await patchLessonProgress(ctx, "training", {
+    const result = await patchLessonProgress(ctx, "how-ai-learns", {
       visited: true,
       quizPassed: true,
     });
-    expect(result.progress.lessons.training?.quizPassed).toBe(true);
-    expect(result.progress.lessons.training?.lastVisitedAt).toBeTruthy();
+    expect(result.progress.lessons["how-ai-learns"]?.quizPassed).toBe(true);
+    expect(result.progress.lessons["how-ai-learns"]?.lastVisitedAt).toBeTruthy();
   });
 });
 
@@ -77,7 +77,7 @@ describe("anonymous merge", () => {
 
   it("merges anonymous progress into authenticated user", async () => {
     const anonCtx = mockCtx("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa");
-    await patchLessonProgress(anonCtx, "neurons", {
+    await patchLessonProgress(anonCtx, "what-is-a-neuron", {
       visited: true,
       mastered: true,
     });
@@ -91,6 +91,6 @@ describe("anonymous merge", () => {
     expect(mergeResult.lessonsMerged).toBeGreaterThan(0);
 
     const progress = await getProgress(authCtx);
-    expect(progress.progress.lessons.neurons?.mastered).toBe(true);
+    expect(progress.progress.lessons["what-is-a-neuron"]?.mastered).toBe(true);
   });
 });

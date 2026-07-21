@@ -22,6 +22,14 @@ const accentMap = {
   gold: "accent-gold",
 };
 
+const fillMap = {
+  coral: "bg-nn-blame/12",
+  mint: "bg-nn-activation/12",
+  violet: "bg-nn-hidden/12",
+  sky: "bg-nn-input/12",
+  gold: "bg-gold/12",
+};
+
 export function InteractiveSlider({
   label,
   value,
@@ -43,9 +51,12 @@ export function InteractiveSlider({
           {format(value)}
         </span>
       </div>
-      <div className="relative h-11 rounded-xl bg-bg-inset/80 px-1.5 py-2 ring-1 ring-white/5 transition-colors group-hover:ring-white/8">
+      <div className="relative h-11 rounded-xl border border-border-subtle bg-bg-stage px-1.5 py-2 transition-shadow group-hover:shadow-sm">
         <div
-          className="pointer-events-none absolute inset-y-2 left-1.5 rounded-lg bg-white/6 transition-all duration-150 ease-out"
+          className={cn(
+            "pointer-events-none absolute inset-y-2 left-1.5 rounded-lg transition-all duration-200 ease-out",
+            fillMap[accent],
+          )}
           style={{ width: `calc(${pct}% - 6px)` }}
         />
         <input

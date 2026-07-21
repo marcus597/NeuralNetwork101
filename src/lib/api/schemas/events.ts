@@ -10,8 +10,6 @@ export const analyticsEventNameSchema = z.enum([
   "experiment_entered",
   "interaction_manipulated",
   "path_node_clicked",
-  "playground_saved",
-  "playground_shared",
   "api_error",
 ]);
 

@@ -2,7 +2,6 @@ import { describe, expect, it } from "vitest";
 import {
   quizValidateRequestSchema,
   progressPutRequestSchema,
-  playgroundCreateRequestSchema,
   eventsBatchRequestSchema,
   bookmarkCreateRequestSchema,
 } from "@/lib/api/schemas";
@@ -10,9 +9,9 @@ import {
 describe("API request schemas", () => {
   it("validates quiz predict request", () => {
     const result = quizValidateRequestSchema.safeParse({
-      lessonSlug: "classification",
+      lessonSlug: "what-is-a-neuron",
       stepIndex: 0,
-      answer: { type: "predict", value: true },
+      answer: { type: "predict", value: false },
     });
     expect(result.success).toBe(true);
   });
@@ -36,20 +35,6 @@ describe("API request schemas", () => {
     expect(result.success).toBe(true);
   });
 
-  it("rejects playground with too many points", () => {
-    const points = Array.from({ length: 501 }, (_, i) => ({
-      id: String(i),
-      x: 0.5,
-      y: 0.5,
-    }));
-    const result = playgroundCreateRequestSchema.safeParse({
-      name: "Big",
-      points,
-      algorithms: [{ id: "knn", hyperparameters: { k: 3 }, enabled: true }],
-    });
-    expect(result.success).toBe(false);
-  });
-
   it("validates analytics batch", () => {
     const result = eventsBatchRequestSchema.safeParse({
       events: [
@@ -66,14 +51,8 @@ describe("API request schemas", () => {
   it("validates bookmark create", () => {
     const lesson = bookmarkCreateRequestSchema.safeParse({
       type: "lesson",
-      lessonSlug: "training",
+      lessonSlug: "what-is-a-neuron",
     });
     expect(lesson.success).toBe(true);
-
-    const pg = bookmarkCreateRequestSchema.safeParse({
-      type: "playground",
-      playgroundId: "abc-123",
-    });
-    expect(pg.success).toBe(true);
   });
 });

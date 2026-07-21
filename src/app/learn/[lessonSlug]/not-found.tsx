@@ -10,7 +10,7 @@ export default function LearnNotFound() {
         action={
           <Link
             href="/learn"
-            className="focus-ring inline-flex min-h-11 items-center rounded-full border border-white/12 bg-bg-elevated px-5 text-sm font-semibold text-ink hover:bg-white/5"
+            className="focus-ring inline-flex min-h-11 items-center rounded-full border border-border-subtle bg-bg-elevated px-5 text-sm font-semibold text-ink hover:bg-bg-muted"
           >
             Back to Path
           </Link>

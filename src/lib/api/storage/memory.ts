@@ -1,12 +1,7 @@
 import type { BookmarkRecord } from "@/lib/api/schemas/bookmark";
-import type { PlaygroundRecord } from "@/lib/api/schemas/playground";
 import type { ProgressStateDto } from "@/lib/api/schemas/progress";
 import type { UserSettings } from "@/lib/api/schemas/settings";
-import type {
-  ShareRecord,
-  StorageAdapter,
-  StoredProgress,
-} from "./types";
+import type { StorageAdapter, StoredProgress } from "./types";
 
 const DEFAULT_PROGRESS: ProgressStateDto = {
   schemaVersion: 1,
@@ -28,10 +23,8 @@ function nowIso(): string {
 
 export class MemoryStorageAdapter implements StorageAdapter {
   private progress = new Map<string, StoredProgress>();
-  private playgrounds = new Map<string, PlaygroundRecord>();
   private bookmarks = new Map<string, BookmarkRecord>();
   private settings = new Map<string, { settings: UserSettings; updatedAt: string }>();
-  private shares = new Map<string, ShareRecord>();
 
   async getProgress(ownerId: string): Promise<StoredProgress | null> {
     return this.progress.get(ownerId) ?? null;
@@ -71,70 +64,6 @@ export class MemoryStorageAdapter implements StorageAdapter {
     current.updatedAt = nowIso();
     this.progress.set(ownerId, current);
     return current;
-  }
-
-  async listPlaygrounds(ownerId: string): Promise<PlaygroundRecord[]> {
-    return [...this.playgrounds.values()].filter((p) => p.ownerId === ownerId);
-  }
-
-  async getPlayground(
-    ownerId: string,
-    id: string,
-  ): Promise<PlaygroundRecord | null> {
-    const p = this.playgrounds.get(id);
-    if (!p || p.ownerId !== ownerId) return null;
-    return p;
-  }
-
-  async createPlayground(
-    ownerId: string,
-    data: Omit<PlaygroundRecord, "id" | "ownerId" | "createdAt" | "updatedAt">,
-  ): Promise<PlaygroundRecord> {
-    const ts = nowIso();
-    const record: PlaygroundRecord = {
-      ...data,
-      id: crypto.randomUUID(),
-      ownerId,
-      createdAt: ts,
-      updatedAt: ts,
-    };
-    this.playgrounds.set(record.id, record);
-    return record;
-  }
-
-  async deletePlayground(ownerId: string, id: string): Promise<boolean> {
-    const p = this.playgrounds.get(id);
-    if (!p || p.ownerId !== ownerId) return false;
-    this.playgrounds.delete(id);
-    return true;
-  }
-
-  async createShareToken(
-    playgroundId: string,
-    ownerId: string,
-    expiresAt: string,
-  ): Promise<string> {
-    const token = crypto.randomUUID().replace(/-/g, "");
-    this.shares.set(token, { playgroundId, ownerId, expiresAt });
-    return token;
-  }
-
-  async getShareRecord(token: string): Promise<ShareRecord | null> {
-    const rec = this.shares.get(token);
-    if (!rec) return null;
-    if (new Date(rec.expiresAt) < new Date()) {
-      this.shares.delete(token);
-      return null;
-    }
-    return rec;
-  }
-
-  async getPlaygroundByShareToken(
-    token: string,
-  ): Promise<PlaygroundRecord | null> {
-    const share = await this.getShareRecord(token);
-    if (!share) return null;
-    return this.playgrounds.get(share.playgroundId) ?? null;
   }
 
   async listBookmarks(ownerId: string): Promise<BookmarkRecord[]> {
@@ -204,7 +133,6 @@ export class MemoryStorageAdapter implements StorageAdapter {
     }
 
     let lessonsMerged = 0;
-    let playgroundsMerged = 0;
     let bookmarksMerged = 0;
 
     const fromProgress = await this.getProgress(fromOwnerId);
@@ -229,13 +157,6 @@ export class MemoryStorageAdapter implements StorageAdapter {
       this.progress.set(toOwnerId, toStored);
     }
 
-    for (const p of [...this.playgrounds.values()]) {
-      if (p.ownerId === fromOwnerId) {
-        this.playgrounds.set(p.id, { ...p, ownerId: toOwnerId, updatedAt: nowIso() });
-        playgroundsMerged++;
-      }
-    }
-
     for (const b of [...this.bookmarks.values()]) {
       if (b.ownerId === fromOwnerId) {
         this.bookmarks.set(b.id, { ...b, ownerId: toOwnerId });
@@ -255,7 +176,7 @@ export class MemoryStorageAdapter implements StorageAdapter {
       });
     }
 
-    return { lessonsMerged, playgroundsMerged, bookmarksMerged };
+    return { lessonsMerged, playgroundsMerged: 0, bookmarksMerged };
   }
 }
 

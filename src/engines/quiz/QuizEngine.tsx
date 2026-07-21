@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Lock } from "lucide-react";
 import type { QuizStep } from "@/lib/content/schema";
 import type { SimSnapshot } from "@/engines/interaction/types";
 import { LiveHint } from "@/components/shell/LiveHint";
@@ -14,15 +13,37 @@ type QuizEngineProps = {
   steps: QuizStep[];
   getSnapshot: () => SimSnapshot | null;
   onPass: () => void;
+  onSkip?: () => void;
 };
 
 const STEP_LABELS = {
-  predict: "Predict",
-  manipulate: "Manipulate",
-  explain: "Explain",
+  predict: "Guess!",
+  manipulate: "Try it!",
+  explain: "Which one sounds right?",
 } as const;
 
-export function QuizEngine({ steps, getSnapshot, onPass }: QuizEngineProps) {
+function compareMetric(
+  v: number,
+  op: "gte" | "lte" | "gt" | "lt" | "eq",
+  target: number,
+): boolean {
+  switch (op) {
+    case "gte":
+      return v >= target;
+    case "lte":
+      return v <= target;
+    case "gt":
+      return v > target;
+    case "lt":
+      return v < target;
+    case "eq":
+      return v === target;
+    default:
+      return false;
+  }
+}
+
+export function QuizEngine({ steps, getSnapshot, onPass, onSkip }: QuizEngineProps) {
   const [stepIndex, setStepIndex] = useState(0);
   const [predictLocked, setPredictLocked] = useState(false);
   const [selectedExplain, setSelectedExplain] = useState<string | null>(null);
@@ -45,12 +66,35 @@ export function QuizEngine({ steps, getSnapshot, onPass }: QuizEngineProps) {
 
   const feedbackTone =
     feedback?.includes("Correct") ||
-    feedback?.includes("reached") ||
-    feedback?.includes("Locked")
+    feedback?.includes("Nice") ||
+    feedback?.includes("Yes") ||
+    feedback?.includes("You did it") ||
+    feedback?.includes("Great")
       ? "success"
-      : feedback?.includes("Not quite") || feedback?.includes("Need")
+      : feedback?.includes("Not quite") ||
+          feedback?.includes("Not yet") ||
+          feedback?.includes("Try") ||
+          feedback?.includes("Move")
         ? "warning"
         : "neutral";
+
+  const checkPredict = (value: boolean | string) => {
+    if (step.type !== "predict") return;
+    if (!step.accept) {
+      setPredictLocked(true);
+      setFeedback("OK! Now try the toy and see what happens.");
+      return;
+    }
+    const expected = step.accept.value;
+    const correct = value === expected;
+    if (correct) {
+      setPredictLocked(true);
+      setFeedback("Great guess!");
+      setTimeout(advance, 600);
+    } else {
+      setFeedback("Not quite — try the other button.");
+    }
+  };
 
   return (
     <div className="space-y-5">
@@ -59,45 +103,67 @@ export function QuizEngine({ steps, getSnapshot, onPass }: QuizEngineProps) {
           <div
             key={i}
             className={cn(
-              "h-1.5 flex-1 rounded-full transition-colors duration-300",
-              i < stepIndex ? "bg-mint" : i === stepIndex ? "bg-violet" : "bg-white/10",
+              "h-2 flex-1 rounded-full transition-colors duration-300",
+              i < stepIndex ? "bg-nn-activation" : i === stepIndex ? "bg-discover" : "bg-bg-inset",
             )}
             aria-hidden
           />
         ))}
       </div>
-      <p className="text-xs font-medium uppercase tracking-[0.12em] text-ink-muted">
-        {STEP_LABELS[step.type]} · {stepIndex + 1} of {steps.length}
+      <p className="text-sm font-semibold text-discover">
+        Question {stepIndex + 1} of {steps.length} — {STEP_LABELS[step.type]}
       </p>
 
       <AnimatePresence mode="wait">
         <motion.div
           key={stepIndex}
-          initial={{ opacity: 0, x: 10 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -10 }}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
           transition={easeOut}
-          className="panel space-y-5 p-6"
+          className="space-y-4 rounded-2xl border border-border-subtle bg-bg-surface p-5 sm:p-6"
         >
-          <p className="text-[15px] leading-relaxed text-ink">{step.prompt}</p>
+          <p className="text-base leading-relaxed text-ink sm:text-lg">{step.prompt}</p>
 
           {step.type === "predict" && (
             <div className="flex flex-wrap gap-3">
-              <Button
-                variant="secondary"
-                disabled={predictLocked}
-                onClick={() => {
-                  setPredictLocked(true);
-                  setFeedback("Guess locked — now change something in the playground and see if you were right.");
-                }}
-                className="bg-violet/15 text-violet ring-1 ring-violet/20"
-              >
-                <Lock className="mr-2 h-4 w-4" aria-hidden />
-                {predictLocked ? "Locked" : "Lock my guess"}
-              </Button>
-              {predictLocked && (
-                <Button variant="ghost" onClick={advance}>
-                  Next step
+              {step.accept?.type === "boolean" || (!step.accept && !step.choices) ? (
+                <>
+                  <Button
+                    variant="secondary"
+                    size="lg"
+                    disabled={predictLocked}
+                    onClick={() => checkPredict(true)}
+                    className="min-w-[6rem] bg-nn-signal-soft text-nn-activation"
+                  >
+                    Yes
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    size="lg"
+                    disabled={predictLocked}
+                    onClick={() => checkPredict(false)}
+                    className="min-w-[6rem] bg-nn-blame-soft text-nn-blame"
+                  >
+                    No
+                  </Button>
+                </>
+              ) : (
+                step.choices?.map((c) => (
+                  <button
+                    key={c.id}
+                    type="button"
+                    disabled={predictLocked}
+                    onClick={() => checkPredict(c.id)}
+                    className="focus-ring w-full rounded-xl border border-border-subtle px-4 py-3.5 text-left text-base hover:bg-bg-muted"
+                  >
+                    {c.text}
+                  </button>
+                ))
+              )}
+              {predictLocked && !step.accept && (
+                <Button variant="ghost" size="lg" onClick={advance}>
+                  Next question →
                 </Button>
               )}
             </div>
@@ -106,33 +172,28 @@ export function QuizEngine({ steps, getSnapshot, onPass }: QuizEngineProps) {
           {step.type === "manipulate" && (
             <Button
               variant="secondary"
-              className="bg-sky/15 text-sky ring-1 ring-sky/20"
+              size="lg"
+              className="bg-nn-input-soft text-nn-input"
               onClick={() => {
                 const snap = getSnapshot();
-                const v = snap?.metrics[step.targetMetric];
-                if (v === undefined) {
-                  setFeedback("Interact with the playground first — move a slider or drag a point.");
+                const metricVal = snap?.metrics[step.targetMetric];
+                const flagVal = snap?.flags[step.targetMetric];
+                let ok = false;
+                if (metricVal !== undefined) {
+                  ok = compareMetric(metricVal, step.targetOp, step.targetValue);
+                } else if (flagVal !== undefined) {
+                  ok = compareMetric(flagVal ? 1 : 0, step.targetOp, step.targetValue);
+                } else {
+                  setFeedback("Move the sliders in the toy first, then press this button.");
                   return;
                 }
-                const ok =
-                  step.targetOp === "gte"
-                    ? v >= step.targetValue
-                    : step.targetOp === "lte"
-                      ? v <= step.targetValue
-                      : step.targetOp === "gt"
-                        ? v > step.targetValue
-                        : step.targetOp === "lt"
-                          ? v < step.targetValue
-                          : v === step.targetValue;
                 setFeedback(
-                  ok
-                    ? "Target reached — you caused a real change in the model."
-                    : `Need ${step.targetMetric} ${step.targetOp} ${step.targetValue}. Right now: ${v.toFixed(2)}.`,
+                  ok ? "You did it!" : "Not yet — keep trying in the toy above.",
                 );
-                if (ok) setTimeout(advance, 700);
+                if (ok) setTimeout(advance, 600);
               }}
             >
-              Check manipulation
+              I did it — check!
             </Button>
           )}
 
@@ -145,17 +206,17 @@ export function QuizEngine({ steps, getSnapshot, onPass }: QuizEngineProps) {
                   onClick={() => {
                     setSelectedExplain(c.id);
                     if (c.id === step.correctId) {
-                      setFeedback("Correct — that's the causal story, not just what moved.");
-                      setTimeout(advance, 800);
+                      setFeedback("Yes!");
+                      setTimeout(advance, 700);
                     } else {
-                      setFeedback(c.wrongReason ?? "Not quite — what would need to be true for that?");
+                      setFeedback("Try another one.");
                     }
                   }}
                   className={cn(
-                    "focus-ring w-full rounded-xl border px-4 py-3.5 text-left text-sm leading-relaxed transition-all active:scale-[0.99]",
+                    "focus-ring w-full rounded-xl border px-4 py-3.5 text-left text-base transition-colors",
                     selectedExplain === c.id
-                      ? "border-violet/40 bg-violet/10 text-ink"
-                      : "border-white/10 text-ink-muted hover:border-white/16 hover:text-ink",
+                      ? "border-discover/35 bg-discover-soft text-ink"
+                      : "border-border-subtle text-ink-muted hover:bg-bg-muted hover:text-ink",
                   )}
                 >
                   {c.text}
@@ -167,6 +228,16 @@ export function QuizEngine({ steps, getSnapshot, onPass }: QuizEngineProps) {
       </AnimatePresence>
 
       <LiveHint message={feedback} tone={feedbackTone} />
+
+      {onSkip && (
+        <button
+          type="button"
+          onClick={onSkip}
+          className="focus-ring text-sm text-ink-muted underline-offset-2 hover:text-ink hover:underline"
+        >
+          Skip questions →
+        </button>
+      )}
     </div>
   );
 }

@@ -1,0 +1,61 @@
+{
+  "id": "how-does-ai-guess",
+  "slug": "how-does-ai-guess",
+  "module": "meet-ai",
+  "moduleTitle": "Meet the brain",
+  "title": "How does AI make a guess?",
+  "kicker": "3",
+  "presetId": "game-guess",
+  "presetConfig": {},
+  "phases": {
+    "hook": {
+      "prompt": "How does AI make a guess?",
+      "tease": "It looks at clues and picks an answer."
+    },
+    "intuition": {
+      "blocks": [
+        {
+          "type": "concept",
+          "term": "Remember",
+          "definition": "It looks at clues and picks an answer."
+        }
+      ]
+    },
+    "playground": {
+      "mastery": {
+        "type": "flag",
+        "flag": "won"
+      }
+    },
+    "mistakes": {
+      "traps": []
+    },
+    "realWorld": {
+      "example": "Face unlock on your phone works like this.",
+      "domain": "Everyday AI"
+    },
+    "miniChallenge": {
+      "goal": "Earn the star!",
+      "mastery": {
+        "type": "flag",
+        "flag": "won"
+      }
+    },
+    "recap": {
+      "bullets": [
+        "It looks at clues and picks an answer."
+      ]
+    },
+    "quiz": {
+      "steps": []
+    }
+  },
+  "nav": {
+    "prev": "why-many-neurons",
+    "next": "how-ai-learns"
+  },
+  "seo": {
+    "title": "How does AI make a guess? — Neural Network Museum",
+    "description": "It looks at clues and picks an answer."
+  }
+}

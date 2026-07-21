@@ -5,14 +5,14 @@ import { cn } from "@/lib/cn";
 
 const variants = {
   primary:
-    "bg-violet text-white shadow-[0_0_20px_rgb(139_124_255/20%)] hover:bg-violet/90 hover:shadow-[0_0_28px_rgb(139_124_255/28%)] active:scale-[0.98]",
+    "bg-accent text-on-accent border-[3px] border-border-subtle shadow-md hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-lg active:translate-x-0.5 active:translate-y-0.5 active:shadow-sm",
   secondary:
-    "border border-white/12 bg-bg-elevated text-ink hover:border-white/18 hover:bg-white/5 active:scale-[0.98]",
+    "border-[3px] border-border-subtle bg-bg-surface text-ink shadow-md hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-lg active:translate-x-0.5 active:translate-y-0.5 active:shadow-sm",
   ghost:
-    "text-ink-muted hover:text-ink hover:bg-white/5 active:scale-[0.98]",
+    "text-ink-muted hover:text-ink hover:bg-bg-muted active:scale-[0.98]",
   destructive:
-    "bg-danger/15 text-danger hover:bg-danger/25 active:scale-[0.98]",
-  icon: "p-2.5 text-ink-muted hover:text-ink hover:bg-white/5 active:scale-95",
+    "bg-nn-blame-soft text-nn-blame border-[3px] border-border-subtle shadow-md hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-sm",
+  icon: "p-2.5 text-ink-muted hover:text-ink hover:bg-bg-muted active:scale-95",
 } as const;
 
 const sizes = {
@@ -38,7 +38,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         type={type}
         className={cn(
-          "focus-ring inline-flex items-center justify-center rounded-full font-semibold transition-all duration-150 disabled:cursor-not-allowed disabled:opacity-40 disabled:active:scale-100",
+          "focus-ring inline-flex items-center justify-center rounded-lg font-bold transition-all duration-200 ease-out disabled:cursor-not-allowed disabled:opacity-40 disabled:active:scale-100 disabled:hover:translate-x-0 disabled:hover:translate-y-0",
           variants[variant],
           variant !== "icon" && sizes[size],
           className,

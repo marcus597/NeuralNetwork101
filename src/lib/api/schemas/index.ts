@@ -2,7 +2,6 @@ export * from "./common";
 export * from "./sim-snapshot";
 export * from "./quiz";
 export * from "./progress";
-export * from "./playground";
 export * from "./bookmark";
 export * from "./settings";
 export * from "./auth";

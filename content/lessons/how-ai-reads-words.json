@@ -1,0 +1,61 @@
+{
+  "id": "how-ai-reads-words",
+  "slug": "how-ai-reads-words",
+  "module": "talk-ai",
+  "moduleTitle": "AI words",
+  "title": "How does AI read words?",
+  "kicker": "8",
+  "presetId": "game-words",
+  "presetConfig": {},
+  "phases": {
+    "hook": {
+      "prompt": "How does AI read words?",
+      "tease": "Each word gets a spot on a map."
+    },
+    "intuition": {
+      "blocks": [
+        {
+          "type": "concept",
+          "term": "Remember",
+          "definition": "Each word gets a spot on a map."
+        }
+      ]
+    },
+    "playground": {
+      "mastery": {
+        "type": "flag",
+        "flag": "won"
+      }
+    },
+    "mistakes": {
+      "traps": []
+    },
+    "realWorld": {
+      "example": "Similar words sit close together.",
+      "domain": "Everyday AI"
+    },
+    "miniChallenge": {
+      "goal": "Earn the star!",
+      "mastery": {
+        "type": "flag",
+        "flag": "won"
+      }
+    },
+    "recap": {
+      "bullets": [
+        "Each word gets a spot on a map."
+      ]
+    },
+    "quiz": {
+      "steps": []
+    }
+  },
+  "nav": {
+    "prev": "when-ai-is-wrong",
+    "next": "how-ai-pays-attention"
+  },
+  "seo": {
+    "title": "How does AI read words? — Neural Network Museum",
+    "description": "Each word gets a spot on a map."
+  }
+}

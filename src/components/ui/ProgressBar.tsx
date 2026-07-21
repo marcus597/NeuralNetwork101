@@ -9,9 +9,9 @@ type ProgressBarProps = {
 };
 
 const fillTone = {
-  violet: "bg-violet shadow-[0_0_12px_rgb(139_124_255/35%)]",
-  mint: "bg-mint shadow-[0_0_12px_rgb(61_255_181/30%)]",
-  gold: "bg-gold shadow-[0_0_12px_rgb(255_209_102/30%)]",
+  violet: "bg-nn-hidden",
+  mint: "bg-nn-activation",
+  gold: "bg-gold",
 };
 
 export function ProgressBar({
@@ -34,7 +34,7 @@ export function ProgressBar({
         </div>
       )}
       <div
-        className="h-2 overflow-hidden rounded-full bg-bg-inset ring-1 ring-white/6"
+        className="h-2 overflow-hidden rounded-full bg-bg-inset ring-1 ring-border-subtle"
         role="progressbar"
         aria-valuenow={value}
         aria-valuemin={0}
