@@ -35,13 +35,15 @@ export function GameBoard({
           transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
           aria-hidden
         >
-          <span className="flex h-20 w-20 items-center justify-center rounded-lg border-[3px] border-border-subtle bg-bg-muted text-5xl shadow-md sm:h-24 sm:w-24 sm:text-6xl">
+          <span className="flex h-20 w-20 items-center justify-center border border-border-hairline bg-bg-muted text-5xl sm:h-24 sm:w-24 sm:text-6xl">
             {emoji}
           </span>
         </motion.div>
       )}
       {hint && (
-        <p className="mb-4 text-center text-base font-bold text-ink-muted">{hint}</p>
+        <p className="mb-4 text-center text-sm font-medium uppercase tracking-[0.06em] text-ink-muted">
+          {hint}
+        </p>
       )}
       <div>{children}</div>
       {totalScreens > 1 && (
@@ -50,8 +52,8 @@ export function GameBoard({
             <span
               key={i}
               className={cn(
-                "h-3 w-3 rounded-sm border-2 border-border-subtle transition-colors",
-                i <= screen ? "bg-discover shadow-sm" : "bg-bg-inset",
+                "h-1.5 w-6 transition-colors",
+                i <= screen ? "bg-ink" : "bg-bg-inset",
               )}
             />
           ))}
@@ -75,9 +77,12 @@ export function GameButton({
   disabled?: boolean;
 }) {
   const styles = {
-    primary: "bg-discover text-on-accent border-[3px] border-border-subtle shadow-md hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-lg active:translate-x-0.5 active:translate-y-0.5 active:shadow-sm",
-    secondary: "bg-bg-surface text-ink border-[3px] border-border-subtle shadow-md hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-lg active:translate-x-0.5 active:translate-y-0.5",
-    success: "bg-nn-activation text-white border-[3px] border-border-subtle shadow-md hover:-translate-x-0.5 hover:-translate-y-0.5",
+    primary:
+      "bg-ink text-ink-inverse border border-ink hover:opacity-90",
+    secondary:
+      "bg-bg-surface text-ink border border-ink hover:bg-ink hover:text-ink-inverse",
+    success:
+      "bg-nn-activation text-white border border-nn-activation hover:opacity-90",
   };
   return (
     <button
@@ -85,7 +90,7 @@ export function GameButton({
       disabled={disabled}
       onClick={onClick}
       className={cn(
-        "focus-ring min-h-14 w-full rounded-lg px-6 text-lg font-bold transition-all disabled:opacity-40 disabled:hover:translate-x-0 disabled:hover:translate-y-0 sm:min-h-16 sm:text-xl",
+        "focus-ring min-h-14 w-full rounded-full px-6 text-sm font-semibold uppercase tracking-[0.1em] transition-all disabled:opacity-40 sm:min-h-16 sm:text-base",
         styles[variant],
         className,
       )}

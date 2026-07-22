@@ -7,6 +7,11 @@ type GameThumbnailProps = {
   size?: number;
 };
 
+/** Stable SVG numbers — avoids server/client float string mismatches. */
+function coord(n: number) {
+  return Math.round(n * 1000) / 1000;
+}
+
 /** Mini comic icon per game — unique shape per lesson topic. */
 export function GameThumbnail({ slug, className, size = 48 }: GameThumbnailProps) {
   const art = getGameArt(slug);
@@ -36,10 +41,10 @@ function GameIcon({ slug, accent }: { slug: string; accent: string }) {
             return (
               <line
                 key={deg}
-                x1={24 + Math.cos(r) * 12}
-                y1={24 + Math.sin(r) * 12}
-                x2={24 + Math.cos(r) * 18}
-                y2={24 + Math.sin(r) * 18}
+                x1={coord(24 + Math.cos(r) * 12)}
+                y1={coord(24 + Math.sin(r) * 12)}
+                x2={coord(24 + Math.cos(r) * 18)}
+                y2={coord(24 + Math.sin(r) * 18)}
                 stroke="#1a1a1a"
                 strokeWidth="2"
                 strokeLinecap="round"
@@ -116,10 +121,10 @@ function GameIcon({ slug, accent }: { slug: string; accent: string }) {
             return (
               <line
                 key={deg}
-                x1={24 + Math.cos(r) * 10}
-                y1={24 + Math.sin(r) * 10}
-                x2={24 + Math.cos(r) * 16}
-                y2={24 + Math.sin(r) * 16}
+                x1={coord(24 + Math.cos(r) * 10)}
+                y1={coord(24 + Math.sin(r) * 10)}
+                x2={coord(24 + Math.cos(r) * 16)}
+                y2={coord(24 + Math.sin(r) * 16)}
                 stroke="#1a1a1a"
                 strokeWidth="1.5"
                 strokeLinecap="round"

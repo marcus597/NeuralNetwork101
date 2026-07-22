@@ -1,25 +1,26 @@
 import type { Metadata } from "next";
-import { Bangers, Comic_Neue, Geist_Mono } from "next/font/google";
+import { Archivo_Black, DM_Sans, Libre_Baskerville } from "next/font/google";
 import { SiteNav } from "@/components/shell/SiteNav";
 import { MobileBanner } from "@/components/shell/MobileBanner";
 import { Providers } from "@/components/shell/Providers";
-import { ComicBackdrop } from "@/components/graphics/ComicBackdrop";
+import { CursorDot } from "@/components/graphics/CursorDot";
 import "./globals.css";
 
-const bangers = Bangers({
-  weight: "400",
-  variable: "--font-bangers",
-  subsets: ["latin"],
-});
-
-const comicNeue = Comic_Neue({
+const libreBaskerville = Libre_Baskerville({
   weight: ["400", "700"],
-  variable: "--font-comic",
+  variable: "--font-brand-face",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const archivoBlack = Archivo_Black({
+  weight: "400",
+  variable: "--font-display-face",
+  subsets: ["latin"],
+});
+
+const dmSans = DM_Sans({
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-body",
   subsets: ["latin"],
 });
 
@@ -46,11 +47,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${bangers.variable} ${comicNeue.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${libreBaskerville.variable} ${archivoBlack.variable} ${dmSans.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <Providers>
-          <ComicBackdrop />
+          <CursorDot />
           <SiteNav />
           <MobileBanner />
           <main className="relative z-10 flex-1">{children}</main>

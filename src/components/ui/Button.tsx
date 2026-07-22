@@ -5,20 +5,20 @@ import { cn } from "@/lib/cn";
 
 const variants = {
   primary:
-    "bg-accent text-on-accent border-[3px] border-border-subtle shadow-md hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-lg active:translate-x-0.5 active:translate-y-0.5 active:shadow-sm",
+    "bg-ink text-ink-inverse border border-ink hover:opacity-90 active:opacity-100",
   secondary:
-    "border-[3px] border-border-subtle bg-bg-surface text-ink shadow-md hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-lg active:translate-x-0.5 active:translate-y-0.5 active:shadow-sm",
+    "border border-ink bg-bg-surface text-ink hover:bg-ink hover:text-ink-inverse",
   ghost:
     "text-ink-muted hover:text-ink hover:bg-bg-muted active:scale-[0.98]",
   destructive:
-    "bg-nn-blame-soft text-nn-blame border-[3px] border-border-subtle shadow-md hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-sm",
+    "bg-nn-blame-soft text-nn-blame border border-nn-blame/30 hover:border-nn-blame",
   icon: "p-2.5 text-ink-muted hover:text-ink hover:bg-bg-muted active:scale-95",
 } as const;
 
 const sizes = {
-  sm: "h-9 min-h-9 px-3.5 text-sm",
-  md: "min-h-11 px-5 py-2.5 text-sm",
-  lg: "min-h-12 px-6 py-3 text-base",
+  sm: "h-9 min-h-9 px-3.5 text-[11px]",
+  md: "min-h-11 px-5 py-2.5 text-[11px]",
+  lg: "min-h-12 px-6 py-3 text-xs",
 } as const;
 
 export type ButtonVariant = keyof typeof variants;
@@ -38,7 +38,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         type={type}
         className={cn(
-          "focus-ring inline-flex items-center justify-center rounded-lg font-bold transition-all duration-200 ease-out disabled:cursor-not-allowed disabled:opacity-40 disabled:active:scale-100 disabled:hover:translate-x-0 disabled:hover:translate-y-0",
+          "focus-ring inline-flex items-center justify-center font-semibold uppercase tracking-[0.1em] transition-all duration-200 ease-out disabled:cursor-not-allowed disabled:opacity-40",
+          variant === "primary" || variant === "secondary"
+            ? "rounded-full"
+            : "rounded-md",
           variants[variant],
           variant !== "icon" && sizes[size],
           className,

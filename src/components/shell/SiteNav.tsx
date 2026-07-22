@@ -2,68 +2,127 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "motion/react";
-import { Home, Map, Network } from "lucide-react";
-import { WonderLogo } from "@/components/graphics/WonderLogo";
+import { Menu } from "lucide-react";
 import { cn } from "@/lib/cn";
-import { springSnappy } from "@/lib/motion/tokens";
 
-const links = [
-  { href: "/", label: "Home", icon: Home },
-  { href: "/learn", label: "Games", icon: Map },
-  { href: "/network", label: "Network", icon: Network },
+const homeLinks = [
+  { href: "/roadmap", label: "Roadmap" },
+  { href: "/learn", label: "Games" },
+  { href: "/network", label: "Exhibit" },
+] as const;
+
+const pageLinks = [
+  { href: "/roadmap", label: "Roadmap" },
+  { href: "/learn", label: "Games" },
+  { href: "/network", label: "Exhibit" },
 ] as const;
 
 export function SiteNav() {
   const pathname = usePathname();
+  const isHome = pathname === "/";
+
+  if (isHome) {
+    return (
+      <header className="pointer-events-none absolute inset-x-0 top-0 z-50">
+        <div className="mx-auto grid max-w-[1400px] grid-cols-[1fr_auto_1fr] items-start gap-4 px-5 py-5 sm:px-8 lg:grid-cols-3 lg:px-8 lg:py-6">
+          <div className="pointer-events-auto justify-self-start">
+            <Link
+              href="/learn"
+              className="focus-ring inline-flex items-center gap-2.5 bg-ink px-3 py-2.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-inverse transition-opacity hover:opacity-90"
+            >
+              <Menu className="h-3.5 w-3.5" strokeWidth={2} aria-hidden />
+              Menu
+            </Link>
+          </div>
+
+          <Link
+            href="/"
+            className="pointer-events-auto justify-self-center font-display text-2xl tracking-[-0.04em] text-ink sm:text-3xl"
+            aria-label="Neural Museum home"
+          >
+            10
+          </Link>
+
+          <nav
+            aria-label="Main"
+            className="pointer-events-auto flex flex-wrap items-center justify-end gap-x-5 gap-y-1 justify-self-end pt-1"
+          >
+            {homeLinks.map((link) => (
+              <NavLink key={link.label} href={link.href} pathname={pathname}>
+                {link.label}
+              </NavLink>
+            ))}
+          </nav>
+        </div>
+      </header>
+    );
+  }
 
   return (
-    <header className="sticky top-0 z-50 px-4 pt-3 sm:px-6">
-      <div className="mx-auto flex h-[3.25rem] max-w-lg items-center justify-between gap-2 rounded-xl border-[3px] border-border-subtle bg-bg-surface px-2 shadow-md sm:h-14 sm:gap-4 sm:px-4">
+    <header className="sticky top-0 z-50 border-b border-ink/10 bg-bg-canvas/95 backdrop-blur-sm">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
         <Link
           href="/"
-          className="focus-ring flex min-h-10 items-center gap-2 rounded-lg px-2 py-1"
-          aria-label="Neural Network Museum home"
+          className="focus-ring shrink-0 bg-ink px-3 py-2 text-ink-inverse transition-opacity hover:opacity-90"
+          aria-label="Neural Museum home"
         >
-          <WonderLogo size={32} />
-          <span className="font-display hidden text-lg tracking-wide text-ink sm:inline">
-            Wonder
+          <span className="font-brand text-sm font-bold tracking-tight sm:text-base">
+            Neural Museum.
           </span>
         </Link>
 
-        <nav aria-label="Main" className="flex items-center gap-0.5">
-          {links.map((link) => {
-            const active =
-              link.href === "/"
-                ? pathname === "/"
-                : link.href === "/learn"
-                  ? pathname.startsWith("/learn")
-                  : pathname.startsWith(link.href);
-            const Icon = link.icon;
-
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  "focus-ring relative flex min-h-10 items-center gap-1 rounded-lg px-2 py-2 text-xs font-bold transition-colors sm:gap-1.5 sm:px-3 sm:text-sm",
-                  active ? "text-ink" : "text-ink-muted hover:text-ink",
-                )}
-              >
-                {active && (
-                  <motion.span
-                    layoutId="nav-pill"
-                    className="absolute inset-0 rounded-lg border-2 border-border-subtle bg-bg-muted shadow-sm"
-                    transition={springSnappy}
-                  />
-                )}
-                <Icon className="relative h-4 w-4 shrink-0" strokeWidth={2} aria-hidden />
-                <span className="relative">{link.label}</span>
-              </Link>
-            );
-          })}
-        </nav>
+        <div className="flex min-w-0 items-center gap-4 sm:gap-6">
+          <nav aria-label="Main" className="hidden items-center gap-5 md:flex">
+            {pageLinks.map((link) => (
+              <NavLink key={link.label} href={link.href} pathname={pathname}>
+                {link.label}
+              </NavLink>
+            ))}
+          </nav>
+          <nav aria-label="Mobile" className="flex items-center gap-3 md:hidden">
+            {pageLinks.slice(0, 3).map((link) => (
+              <NavLink key={link.label} href={link.href} pathname={pathname}>
+                {link.label}
+              </NavLink>
+            ))}
+          </nav>
+          <Link
+            href="/learn/what-is-a-neuron"
+            className="focus-ring shrink-0 bg-ink px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-inverse transition-opacity hover:opacity-85"
+          >
+            Play now
+          </Link>
+        </div>
       </div>
     </header>
+  );
+}
+
+function NavLink({
+  href,
+  pathname,
+  children,
+}: {
+  href: string;
+  pathname: string;
+  children: React.ReactNode;
+}) {
+  const active =
+    href === "/"
+      ? pathname === "/"
+      : href === "/learn"
+        ? pathname.startsWith("/learn")
+        : pathname.startsWith(href);
+
+  return (
+    <Link
+      href={href}
+      className={cn(
+        "focus-ring text-[11px] font-semibold uppercase tracking-[0.16em] transition-colors",
+        active ? "text-ink" : "text-ink-subtle hover:text-ink",
+      )}
+    >
+      {children}
+    </Link>
   );
 }

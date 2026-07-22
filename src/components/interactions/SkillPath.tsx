@@ -44,7 +44,7 @@ export function SkillPath({ lessonMeta }: SkillPathProps) {
   const total = wings.reduce((n, w) => n + w.games.length, 0);
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-12">
       <StarMeter collected={stars} total={total} />
 
       {wings.map((wing, wingIdx) => (
@@ -63,18 +63,16 @@ export function SkillPath({ lessonMeta }: SkillPathProps) {
               const card = (
                 <div
                   className={cn(
-                    "relative flex items-center gap-4 rounded-lg border-[3px] bg-bg-surface p-4 shadow-sm transition-all",
+                    "relative flex items-center gap-4 border bg-bg-surface p-4 transition-colors",
                     unlocked
-                      ? "border-border-subtle hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-md"
-                      : "border-border-subtle opacity-55",
-                    active === game.slug && unlocked && "bg-discover-soft shadow-md",
-                    done && "ring-2 ring-gold/40",
+                      ? "border-border-hairline hover:border-ink"
+                      : "border-border-hairline opacity-50",
+                    active === game.slug && unlocked && "border-ink bg-bg-muted",
+                    done && "bg-bg-stage",
                   )}
                 >
-                  {/* Game number ribbon */}
                   <span
-                    className="absolute -left-1 -top-2 rounded-md border-2 border-border-subtle px-1.5 py-0.5 text-[10px] font-bold shadow-sm"
-                    style={{ background: art.bg, color: art.accent }}
+                    className="absolute -left-px -top-2 border border-ink bg-bg-canvas px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-ink"
                     aria-hidden
                   >
                     #{game.number}
@@ -83,25 +81,27 @@ export function SkillPath({ lessonMeta }: SkillPathProps) {
                   {unlocked ? (
                     <GameThumbnail slug={game.slug} size={52} />
                   ) : (
-                    <span className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-md border-[3px] border-border-subtle bg-bg-inset shadow-sm">
-                      <Lock className="h-5 w-5 text-ink-subtle" aria-hidden />
+                    <span className="flex h-[52px] w-[52px] shrink-0 items-center justify-center border border-border-hairline bg-bg-inset">
+                      <Lock className="h-4 w-4 text-ink-subtle" aria-hidden />
                     </span>
                   )}
 
                   <div className="min-w-0 flex-1">
-                    <p className="font-bold leading-snug text-ink">{game.title}</p>
+                    <p className="text-sm font-semibold uppercase tracking-[0.04em] leading-snug text-ink">
+                      {game.title}
+                    </p>
                     {done && (
-                      <p className="mt-0.5 flex items-center gap-1 text-xs font-bold text-nn-activation">
-                        <ComicStar size={14} /> Mastered
+                      <p className="mt-0.5 flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-nn-activation">
+                        <ComicStar size={12} /> Mastered
                       </p>
                     )}
                   </div>
 
                   {done ? (
-                    <ComicStar size={28} />
+                    <ComicStar size={24} />
                   ) : unlocked ? (
                     <span
-                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border-2 border-border-subtle text-sm font-bold shadow-sm"
+                      className="flex h-8 w-8 shrink-0 items-center justify-center border border-ink text-xs font-semibold"
                       style={{ background: art.bg, color: art.accent }}
                       aria-hidden
                     >

@@ -51,13 +51,19 @@ function SingleNeuronDiagram({ className }: { className?: string }) {
           <g key={i}>
             <line x1="56" y1={y} x2="200" y2="72" stroke="#93c5fd" strokeWidth="1.5" markerEnd="url(#arrow)" />
             <circle cx="36" cy={y} r="10" fill="#2563eb" />
-            <text x="36" y={y + 4} textAnchor="middle" className="fill-white text-[8px] font-bold">x</text>
+            <text x="36" y={y + 4} textAnchor="middle" className="fill-white text-[8px] font-bold">
+              x{i + 1}
+            </text>
+            <text x="118" y={y - 2} className="fill-ink-muted text-[8px]">
+              ×w{i + 1}
+            </text>
           </g>
         );
       })}
       <circle cx="220" cy="72" r="18" fill="#14b8a6" />
       <text x="220" y="76" textAnchor="middle" className="fill-white text-[9px] font-bold">Σ</text>
-      <text x="260" y="76" className="fill-ink-muted text-[11px]">on / off</text>
+      <text x="248" y="68" className="fill-ink-muted text-[10px]">+ bias</text>
+      <text x="248" y="84" className="fill-ink-muted text-[10px]">→ on / off</text>
       <defs>
         <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
           <path d="M0,0 L6,3 L0,6 Z" fill="#93c5fd" />

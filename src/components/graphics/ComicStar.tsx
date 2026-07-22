@@ -10,7 +10,7 @@ type ComicStarProps = {
   filled?: boolean;
 };
 
-/** Bold comic-book star collectible. */
+/** Four-point editorial star mark. */
 export function ComicStar({
   className,
   size = 48,
@@ -25,20 +25,13 @@ export function ComicStar({
       className={cn("shrink-0", className)}
       aria-hidden
     >
-      <polygon
-        points="24,2 29,17 46,17 33,27 38,44 24,34 10,44 15,27 2,17 19,17"
-        fill={filled ? "#fdcb6e" : "transparent"}
-        stroke="#1a1a1a"
-        strokeWidth="2.5"
-        strokeLinejoin="round"
+      <path
+        d="M24 4 L28 20 L44 24 L28 28 L24 44 L20 28 L4 24 L20 20 Z"
+        fill={filled ? "#111111" : "transparent"}
+        stroke="#111111"
+        strokeWidth="1.5"
+        strokeLinejoin="miter"
       />
-      {filled && (
-        <polygon
-          points="24,8 27,18 38,18 29,24 32,35 24,29 16,35 19,24 10,18 21,18"
-          fill="#ffe566"
-          stroke="none"
-        />
-      )}
     </svg>
   );
 

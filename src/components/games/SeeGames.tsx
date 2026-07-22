@@ -12,12 +12,14 @@ import {
   matchesAnswer,
 } from "@/components/games/GameInputs";
 
+const PUPPY_EXAMPLE_COUNT = 3;
+
 export const PuppyGame: PresetComponent = forwardRef(function PuppyGame(_props, ref) {
   const { revealAfterCorrect, modal } = useGameConceptReveal("game-puppy");
   const [labels, setLabels] = useState<string[]>([]);
   const [current, setCurrent] = useState("");
   const [feedback, setFeedback] = useState<string | null>(null);
-  const won = labels.length >= 5;
+  const won = labels.length >= PUPPY_EXAMPLE_COUNT;
   const snapshot = useGameSnapshot("game-puppy", { won });
 
   useImperativeHandle(ref, () => ({
@@ -37,8 +39,9 @@ export const PuppyGame: PresetComponent = forwardRef(function PuppyGame(_props, 
       setFeedback('Label this photo "tennis ball" — that is what we want the puppy to learn.');
       return;
     }
+    const nextLabels = [...labels, trimmed];
     revealAfterCorrect("example", () => {
-      setLabels((l) => [...l, trimmed]);
+      setLabels(nextLabels);
       setCurrent("");
       setFeedback(null);
     });
@@ -47,7 +50,7 @@ export const PuppyGame: PresetComponent = forwardRef(function PuppyGame(_props, 
   if (won) {
     return (
       <>
-        <GameBoard emoji="🐕" title="5 examples taught!" hint="More good labels = smarter AI.">
+        <GameBoard emoji="🐕" title={`${PUPPY_EXAMPLE_COUNT} examples taught!`} hint="More good labels = smarter AI.">
           <div className="flex flex-wrap justify-center gap-1">
             {labels.map((_, i) => (
               <span key={i} className="text-2xl">🎾</span>
@@ -63,10 +66,10 @@ export const PuppyGame: PresetComponent = forwardRef(function PuppyGame(_props, 
     <>
       <GameBoard
         emoji="🐕"
-        title={`Training photo ${labels.length + 1} of 5`}
+        title={`Training photo ${labels.length + 1} of ${PUPPY_EXAMPLE_COUNT}`}
         hint="Type what is in the picture."
         screen={labels.length}
-        totalScreens={5}
+        totalScreens={PUPPY_EXAMPLE_COUNT}
       >
         <div className="space-y-4">
           <div className="flex h-32 items-center justify-center rounded-2xl bg-bg-stage text-6xl ring-2 ring-border-subtle">
@@ -84,7 +87,9 @@ export const PuppyGame: PresetComponent = forwardRef(function PuppyGame(_props, 
           </GameCheckButton>
           {feedback && <GameFeedback tone="error" message={feedback} />}
           {labels.length > 0 && (
-            <p className="text-center text-sm text-nn-activation">{labels.length} / 5 saved ✓</p>
+            <p className="text-center text-sm text-nn-activation">
+              {labels.length} / {PUPPY_EXAMPLE_COUNT} saved ✓
+            </p>
           )}
         </div>
       </GameBoard>

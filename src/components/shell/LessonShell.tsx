@@ -20,10 +20,8 @@ export function LessonShell({
 }: LessonShellProps) {
   return (
     <article className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
-      <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">
-        {kicker}
-      </p>
-      <h1 className="mb-8 text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+      <p className="editorial-kicker mb-3">{kicker}</p>
+      <h1 className="font-display mb-8 max-w-[18ch] text-3xl uppercase leading-none tracking-[-0.03em] text-ink sm:text-4xl">
         {title}
       </h1>
 
@@ -31,13 +29,13 @@ export function LessonShell({
 
       <nav
         aria-label="Lesson navigation"
-        className="mt-12 flex items-center justify-between gap-4 border-t border-border-subtle pt-8"
+        className="mt-12 flex items-center justify-between gap-4 border-t border-border-hairline pt-8"
       >
         {prev ? (
           <Link
             href={prev.href}
             className={cn(
-              "focus-ring group inline-flex min-h-11 items-center gap-2 rounded-full border border-border-subtle px-4 py-2.5 text-sm text-ink-muted transition-colors hover:border-border-medium hover:text-ink active:scale-[0.98]",
+              "focus-ring group inline-flex min-h-11 items-center gap-2 border border-border-hairline bg-bg-surface px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-muted transition-colors hover:border-ink hover:text-ink",
             )}
           >
             <ArrowLeft
@@ -54,7 +52,7 @@ export function LessonShell({
           <Link
             href={next.href}
             className={cn(
-              "focus-ring group inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-4 py-2.5 text-sm font-medium text-on-accent transition-all hover:bg-accent/90 active:scale-[0.98]",
+              "focus-ring group inline-flex min-h-11 items-center gap-2 bg-ink px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-inverse transition-opacity hover:opacity-85",
             )}
           >
             {next.label}
