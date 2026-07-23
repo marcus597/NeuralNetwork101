@@ -126,7 +126,7 @@ export function CursorDot() {
   if (!enabled) return null;
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[100]" aria-hidden>
+    <div className="pointer-events-none fixed inset-0 z-[300]" aria-hidden>
       <div
         ref={ringRef}
         data-mode="default"
